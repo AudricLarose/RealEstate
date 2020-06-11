@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/wallpaperaddinformation1">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <Spinner
+                android:id="@+id/type_bien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="#BEDAC3"
+                android:entries="@array/Spinner_items"
+                android:outlineAmbientShadowColor="#bedac3" />
+
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:id="@+id/edit_adresse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/type_bien"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round"
+                android:textAlignment="center"
+                app:mtf_backgroundColor="#bedac3"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_image="@drawable/ic_map_black_24dp"
+                app:mtf_labelColor="#bedac3">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Adresse"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+
+            <RelativeLayout
+                android:id="@+id/RelativePostal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_adresse"
+                android:layout_marginLeft="50dp">
+
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_codepostal"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Postale"
+                        android:inputType="phone"
+                        android:textColor="#bedac3"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeVille"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_adresse"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="51dp">
+
+                <TextView
+                    android:id="@+id/text_ville"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="Ville" />
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_ville"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round"
+
+                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ville"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeMaarket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativePostal"
+                android:layout_marginLeft="50dp">
+
+                <TextView
+                    android:id="@+id/text_onthemarket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="sur le marché depuis "
+                    android:textColor="#bedac3" />
+
+                <TextView
+                    android:id="@+id/edit_onthemarket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_onthemarket"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="10dp"
+                    android:text=" "
+                    android:textColor="#bedac3" />
+
+                <Button
+                    android:id="@+id/btn_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit_onthemarket"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="10dp"
+
+                    android:background="@drawable/button"
+                    android:text="Date" />
+            </RelativeLayout>
+
+            <Switch
+                android:id="@+id/switch_vendu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RelativeVille"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:text="Vendu ?"
+                android:textColor="#bedac3" />
+
+            <RelativeLayout
+                android:id="@+id/RelativeSell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch_vendu"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="50dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/edit_ontheSell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="10dp"
+                    android:text="date"
+                    android:textColor="#bedac3" />
+
+                <Button
+                    android:id="@+id/btn_date_Sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit_ontheSell"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="10dp"
+                    android:text="Date" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/RelativePrice"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeMaarket"
+                android:layout_marginLeft="50dp">
+
+                <TextView
+                    android:id="@+id/text_prix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="Prix" />
+
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_prix"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/round"
+                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Prix"
+                        android:inputType="phone"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeSurface"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeMaarket"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp">
+
+                <TextView
+                    android:id="@+id/text_surface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="Surface" />
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_surface"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/round"
+                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_cardCollapsedHeight="4dp"
+
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Surface"
+
+                        android:inputType="phone"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativePiece"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativePrice"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="50dp">
+
+                <TextView
+                    android:id="@+id/text_pieces"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="pieces"
+
+                    />
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_piece"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@drawable/round"
+
+                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Piece"
+                        android:inputType="phone"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeChambre"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeSurface"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/RelativePiece">
+
+                <TextView
+                    android:id="@+id/text_chambre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="chambres"
+
+                    />
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_chambre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round"
+                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Chambre"
+                        android:inputType="phone"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/RelativeSdb"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeSurface"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp">
+
+                <TextView
+                    android:id="@+id/text_sdb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerHorizontal="true"
+
+                    android:text="SDB" />
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:id="@+id/edit_sdb"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round"
+                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_labelColor="#bedac3">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Sdb"
+                        android:inputType="phone"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text_nom_agent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeSdb"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="Nom De l'Agent"
+                android:textColor="#bedac3" />
+
+
+            <Spinner
+                android:id="@+id/nom_agent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_nom_agent"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="#bedac3"
+                android:entries="@array/Spinner_items2"
+                android:textColor="#bedac3" />
+
+            <TextView
+                android:id="@+id/text_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nom_agent"
+                android:layout_marginBottom="20dp"
+                android:text="Description"
+                android:textColor="#bedac3" />
+
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:id="@+id/edit_descript"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_description"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round"
+                app:mtf_backgroundColor="#bedac3"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_image="@drawable/ic_map_black_24dp"
+                app:mtf_labelColor="#bedac3">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+            <TextView
+                android:id="@+id/text_proximité"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_descript"
+                android:layout_marginBottom="10dp"
+                android:text="proximité"
+                android:textColor="#bedac3" />
+
+            <RelativeLayout
+
+                android:id="@+id/relativeCBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/text_proximité"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginBottom="30dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/check_ecole"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ecoles"
+                    android:textColor="#bedac3"
+                    android:theme="@style/Theme.MaterialComponents.DayNight"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipCornerRadius="24dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/check_magasin"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/check_ecole"
+                    android:text="magasins"
+                    android:textColor="#bedac3"
+                    android:theme="@style/Theme.MaterialComponents.DayNight"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipCornerRadius="24dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/check_metro"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/check_magasin"
+                    android:text="Station"
+                    android:textColor="#bedac3"
+                    android:theme="@style/Theme.MaterialComponents.DayNight"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipCornerRadius="24dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/check_parc"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/check_ecole"
+                    android:layout_marginLeft="25dp"
+                    android:text="Parc"
+                    android:textColor="#bedac3"
+                    android:theme="@style/Theme.MaterialComponents.DayNight"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipCornerRadius="24dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/check_bus"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/check_ecole"
+                    android:layout_toRightOf="@+id/check_parc"
+                    android:text="station Bus/Metro"
+                    android:textColor="#bedac3"
+                    android:theme="@style/Theme.MaterialComponents.DayNight"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipCornerRadius="24dp" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_photo_on_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeCBox"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/button"
+
+                android:text="Local photo" />
+
+            <Button
+                android:id="@+id/btn_take_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeCBox"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/button"
+
+                android:text="Take a photo" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Recyclerviewphotos"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/btn_take_photo"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Recyclerviewphotos"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/button"
+
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/btn_Modifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Recyclerviewphotos"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/button"
+                android:text="Modifier"
+
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Recyclerviewphotos"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/button"
+
+                android:text="Ok" />
+        </RelativeLayout>
+
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/round"
+        android:alpha="0.1">
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Spinner_items2">
+        <item>Mckeal Keal</item>
+        <item>Jackson Myrtis</item>
+        <item>Gilles De Saintpatus</item>
+        <item>Audric Richards</item>
+    </string-array>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/sortedmenu"
+        >
+        <item
+            android:id="@+id/conversion"
+            android:title="Convertir">
+        </item>
+        <item
+            android:id="@+id/trie"
+            android:title="Trier par prix" >
+            <menu >
+                <item
+                    android:id="@+id/subcroissant"
+                    android:title="Croissant" />
+                <item
+                    android:id="@+id/subDecroissant"
+                    android:title="Decroissant" />
+            </menu>
+
+
+        </item>
+    </group>
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/maps"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:title="search"
+        app:showAsAction="always" />
+
+</menu>

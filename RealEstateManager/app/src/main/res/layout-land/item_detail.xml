@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wallpaperdetails"
+    tools:context=".ActivityDetails">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecycleDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/RecycleDetails"
+    android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RecycleDetails">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_marginHorizontal="20dp"
+                android:alpha="0.7"
+                android:background="@drawable/round_details">
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/descirptionDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="Description"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/descirptionInputDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descirptionDetails"
+                android:layout_marginLeft="50dp"
+
+                android:layout_marginBottom="20dp"
+                android:text="Description"
+                android:textColor="@android:color/white" />
+
+            <RelativeLayout
+                android:id="@+id/Relativedetails1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descirptionInputDetails"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/RelativeSurfaceDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp">
+
+                    <TextView
+                        android:id="@+id/surfaceDetails"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:text="Surface"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/SurfacechiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_below="@+id/surfaceDetails"
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeChiffresDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/PriceDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/PriceChiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/PriceDetails"
+                        android:text="chiffres"
+
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Relativedetails2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/Relativedetails1"
+                android:layout_marginBottom="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/RelativeRoomDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp">
+
+                    <TextView
+                        android:id="@+id/RoomDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rooms"
+                        android:textColor="@android:color/white"
+
+
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/RoomechiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/RoomDetails"
+
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeTypeDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginRight="100dp"
+                    android:textStyle="bold">
+
+                    <TextView
+                        android:id="@+id/TypeDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/TypeChiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_below="@+id/TypeDetails"
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Relativedetails3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Relativedetails2"
+
+                android:layout_marginBottom="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/RelativeBathroomDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp">
+
+                    <TextView
+                        android:id="@+id/BathroomDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SDB"
+
+                        android:textColor="@android:color/white"
+
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/BathroomchiffresDetails"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/BathroomDetails"
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeNearbyDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="100dp">
+
+                    <TextView
+                        android:id="@+id/NearbyDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Proximité"
+                        android:textColor="@android:color/white"
+
+
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/NearbyChiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/NearbyDetails"
+
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Relativedetails4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Relativedetails3">
+
+                <RelativeLayout
+                    android:id="@+id/RelativeRoomsDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/RoomsDetails"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:text="Bedrooms"
+                        android:textColor="@android:color/white"
+
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/RoomschiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/RoomsDetails"
+
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeDetailsLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Relativedetails4"
+                android:layout_marginLeft="50dp">
+
+                <TextView
+                    android:id="@+id/locationDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+
+                    android:text="Location"
+                    android:textColor="@android:color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/adresseDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/locationDetails"
+                    android:text="Adresse"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/villeDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/adresseDetails"
+                    android:text="Ville"
+
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/paysDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/villeDetails"
+                    android:text="Pays"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/mapLiteView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/Relativedetails4"
+                android:layout_alignParentRight="true"
+
+                android:layout_marginRight="20dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
