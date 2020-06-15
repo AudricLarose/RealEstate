@@ -1,18 +1,26 @@
 package com.openclassrooms.realestatemanager;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.GpsSatellite;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -26,7 +34,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.openclassrooms.realestatemanager.Api.DI;
 import com.openclassrooms.realestatemanager.Api.ExtendedServiceEstate;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
@@ -35,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.location.GpsStatus.GPS_EVENT_SATELLITE_STATUS;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static FusedLocationProviderClient fusedLocationProviderClient;
@@ -48,7 +60,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         deployOnMapReady();
+//        checkGPSStatus();
     }
+
+//    private void checkGPSStatus() {
+//        LocationManager lm = (LocationManager) getSystemService(MapsActivity. LOCATION_SERVICE ) ;
+//        boolean gps_enabled = false;
+//        boolean network_enabled = false;
+//        try {
+//            gps_enabled = lm.isProviderEnabled(LocationManager. GPS_PROVIDER ) ;
+//        } catch (Exception e) {
+//            e.printStackTrace() ;
+//        }
+//        try {
+//            network_enabled = lm.isProviderEnabled(LocationManager. NETWORK_PROVIDER ) ;
+//        } catch (Exception e) {
+//            e.printStackTrace() ;
+//        }
+//        if (!gps_enabled && !network_enabled) {
+//            new AlertDialog.Builder(MapsActivity.this)
+//                    .setMessage("GPS Enable")
+//                    .setPositiveButton("Settings", new
+//                            DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+//                                }
+//                            })
+//                    .setNegativeButton("Cancel", null)
+//                    .show();
+//        }
+//    }
 
     private void deployOnMapReady() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -65,12 +106,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         searchMe(googleMap);
         deployFindMeButton(googleMap);
-        searchAndPlacePlaces(googleMap);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void searchMe(GoogleMap googleMap) {
-        askPermission(googleMap);
+        verifyIfPlaceCanBePlaced(googleMap);
     }
 
     private void deployFindMeButton(final GoogleMap googleMap) {
@@ -85,41 +121,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
+    private void searchMe(GoogleMap googleMap) {
+        askPermission(googleMap);
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void askPermission(final GoogleMap googleMap) {
         if ((MapsActivity.this.checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
                 (MapsActivity.this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(MapsActivity.this, new String[]{ACCESS_FINE_LOCATION}, 1);
         } else {
             placeMeOnMap(googleMap);
-        }
-    }
-
-    private void placeMeOnMap(final GoogleMap googleMap) {
-        Utils.GPSOnVerify(MapsActivity.this);
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(MapsActivity.this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    double latitude = location.getLatitude();
-                    double longitude = location.getLongitude();
-                    LatLng latLng = new LatLng(latitude, longitude);
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title("Me"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                }
-            }
-        });
-    }
-
-    private void searchAndPlacePlaces(GoogleMap googleMap) {
-        try {
-            for (int i = 0; i < listRealEstate.size(); i++) {
-                LatLng latLngRealestate = new LatLng(listRealEstate.get(i).getLattitude(), listRealEstate.get(i).getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(latLngRealestate).title("here"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLngRealestate));
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "L'adresse indiquée n'a pas été trouvé sur notre banque de donnée", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -135,4 +149,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     }
+    private void placeMeOnMap(final GoogleMap googleMap) {
+        Utils.GPSOnVerify(MapsActivity.this, new Utils.GPSCallBAck() {
+            @Override
+            public void onRetrieve() {
+                retievedPosition(googleMap);
+
+            }
+        });
+    }
+
+    private void retievedPosition(final GoogleMap googleMap) {
+        try {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    if (task.getResult() != null) {
+                        double latitude = task.getResult().getLatitude();
+                        double longitude = task.getResult().getLongitude();
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title("Me"));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MapsActivity.this, "Votre Position n'a pas été trouvé, " +e.getLocalizedMessage()+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                    e.getCause();
+                    e.fillInStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(MapsActivity.this, "Votre Position n'a pas été trouvé, " +e.getLocalizedMessage()+ e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            e.getCause();
+            e.fillInStackTrace();
+        }
+    }
+
+    private void verifyIfPlaceCanBePlaced(GoogleMap googleMap) {
+        for (int i = 0; i < listRealEstate.size(); i++) {
+            searchAdressIfExist(listRealEstate.get(i),googleMap);
+        }
+    }
+
+    private void searchAdressIfExist(RealEstate estate, final GoogleMap Map) {
+        if (estate.getAdresse()!=null){
+            Utils.findAddress(MapsActivity.this, estate.getAdresse(), new Utils.AdressGenerators() {
+                @Override
+                public void onSuccess(List<Address> addressList) {
+                    searchAndPlacePlaces(Map,addressList);
+                }
+
+                @Override
+                public void onEchec() {
+                    Toast.makeText(MapsActivity.this, "Aucune Place n'a été trouvé", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCrash() {
+                    Toast.makeText(MapsActivity.this, "Aucune Place n'a été trouvé", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+    }
+    private void searchAndPlacePlaces(GoogleMap googleMap, List<Address> addressList) {
+        try {
+            for (int i = 0; i < addressList.size(); i++) {
+                LatLng latLngRealestate = new LatLng(addressList.get(i).getLatitude(), addressList.get(i).getLongitude());
+                googleMap.addMarker(new MarkerOptions().position(latLngRealestate).title("here"));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLngRealestate));
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "L'adresse indiquée n'a pas été trouvé sur notre banque de donnée", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

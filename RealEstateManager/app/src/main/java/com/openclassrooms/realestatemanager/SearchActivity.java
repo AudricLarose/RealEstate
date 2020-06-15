@@ -152,7 +152,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     }
 
     private void iniatiateAndActivateSwitch() {
-        switchVendu = findViewById(R.id.switch_vendu);
+        switchVendu = findViewById(R.id.search_switch_vendu);
         switchVendu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -177,7 +177,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     }
 
     private void initiateAndActivateDateSellButton() {
-        btnDateSell = findViewById(R.id.btn_date_Sell);
+        btnDateSell = findViewById(R.id.search_btn_date_Sell);
         btnDateSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

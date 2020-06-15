@@ -15,65 +15,44 @@ import com.openclassrooms.realestatemanager.Api.DataBaseSQL;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
 public class PersonContentProvider extends ContentProvider {
-
+    public static final String AUTHORITY = "com.openclassrooms.realestatemanager";
     public static final String TAG = PersonContentProvider.class.getName();
+    public static final String PERSON_TABLE_NAME = "bdd";
+    public static final Uri URI_ITEM = Uri.parse("content://" + AUTHORITY + "/" + PERSON_TABLE_NAME);
+    public static final int ID_PERSON_DATA = 1;
+    public static final int ID_PERSON_DATA_ITEM = 2;
+    public static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    static {
+        uriMatcher.addURI(AUTHORITY, PERSON_TABLE_NAME, ID_PERSON_DATA);
+        uriMatcher.addURI(AUTHORITY, PERSON_TABLE_NAME + "/*", ID_PERSON_DATA_ITEM);
+    }
 
     private EstateDao estateDao;
 
-    /**
-     * Authority of this content provider
-     */
-    public static final String AUTHORITY =    " com.openclassrooms.realestatemanager";
-
-    public static final String PERSON_TABLE_NAME = "bdd";
-
-    /**
-     * The match code for some items in the Person table
-     */
-    public static final int ID_PERSON_DATA = 1;
-
-    /**
-     * The match code for an item in the PErson table
-     */
-    public static final int ID_PERSON_DATA_ITEM = 2;
-
-    public static final UriMatcher uriMatcher = new UriMatcher
-            (UriMatcher.NO_MATCH);
-
-    static {
-        uriMatcher.addURI(AUTHORITY,PERSON_TABLE_NAME,ID_PERSON_DATA);
-        uriMatcher.addURI(AUTHORITY,PERSON_TABLE_NAME +"/*", ID_PERSON_DATA_ITEM);
-    }
-
     @Override
     public boolean onCreate() {
-        estateDao = DataBaseSQL.getInstance(getContext()).estateDao();
         return false;
     }
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri,
-                        @Nullable String[] projection,
-                        @Nullable String selection,
-                        @Nullable String[] selectionArgs,
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs,
                         @Nullable String sortOrder) {
         Log.d(TAG, "query");
         Cursor cursor;
-        switch (uriMatcher.match(uri)) {
-            case ID_PERSON_DATA:
-                cursor = (Cursor) estateDao.selectAllEstate();
-                if (getContext() != null) {
-                    cursor.setNotificationUri(getContext()
-                            .getContentResolver(), uri);
-                    return cursor;
-                }
-
-            default:
-                throw new IllegalArgumentException
-                        ("Unknown URI: " + uri);
-
+        cursor = (Cursor) estateDao.selectAllEstate();
+        if (getContext() != null) {
+            long userId = ContentUris.parseId(uri);
+            estateDao = DataBaseSQL.getInstance(getContext()).estateDao();
+            cursor.setNotificationUri(getContext().getContentResolver(), uri);
+            return cursor;
         }
+
+
+        throw new IllegalArgumentException
+                ("Unknown URI: " + uri);
+
     }
 
     @Nullable
@@ -84,16 +63,14 @@ public class PersonContentProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Uri insert(@NonNull Uri uri,
-                      @Nullable ContentValues values) {
-        Log.d(TAG, "insert");
+    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
         switch (uriMatcher.match(uri)) {
             case ID_PERSON_DATA:
                 if (getContext() != null) {
-                    long id = estateDao.insertEstate(RealEstate.fromContentValues(values));
+
+                    long id = DataBaseSQL.getInstance(getContext()).estateDao().insertEstate(RealEstate.fromContentValues(values));
                     if (id != 0) {
-                        getContext().getContentResolver()
-                                .notifyChange(uri, null);
+                        getContext().getContentResolver().notifyChange(uri, null);
                         return ContentUris.withAppendedId(uri, id);
                     }
                 }
@@ -118,26 +95,23 @@ public class PersonContentProvider extends ContentProvider {
                         ("Invalid uri: cannot delete");
             case ID_PERSON_DATA_ITEM:
                 if (getContext() != null) {
-                    int count = estateDao.deleteEstate(ContentUris.parseId(uri));
+                    int count = DataBaseSQL.getInstance(getContext()).estateDao().deleteEstate(ContentUris.parseId(uri));
                     getContext().getContentResolver().notifyChange(uri, null);
                     return count;
                 }
             default:
-                throw new IllegalArgumentException ("Unknown URI:" + uri);
+                throw new IllegalArgumentException("Unknown URI:" + uri);
         }
 
     }
 
     @Override
-    public int update(@NonNull Uri uri,
-                      @Nullable ContentValues values,
-                      @Nullable String selection,
-                      @Nullable String[] selectionArgs) {
-        Log.d(TAG, "update");
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+
         switch (uriMatcher.match(uri)) {
             case ID_PERSON_DATA:
                 if (getContext() != null) {
-                    int count = estateDao.uploadEstate(RealEstate.fromContentValues(values));
+                    int count = estateDao.upDateEstate(RealEstate.fromContentValues(values));
                     if (count != 0) {
                         getContext().getContentResolver().notifyChange(uri, null);
                         return count;

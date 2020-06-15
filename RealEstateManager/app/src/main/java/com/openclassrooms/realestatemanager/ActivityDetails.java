@@ -68,7 +68,7 @@ public class ActivityDetails extends AppCompatActivity {
     }
 
     private void deployRecyclerViewDetails() {
-        adapter = new AdaptateurImage(estateGrabbed.getPhotosReal());
+//        adapter = new AdaptateurImage(estateGrabbed.getPhotosReal());
         recyclerView = findViewById(R.id.RecycleDetails);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(ActivityDetails.this, RecyclerView.HORIZONTAL , false);

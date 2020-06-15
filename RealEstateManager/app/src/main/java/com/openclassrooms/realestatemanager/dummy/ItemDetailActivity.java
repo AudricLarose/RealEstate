@@ -29,6 +29,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         ActionBar actionBar = getSupportActionBar();
+        setTitle("Details");
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }

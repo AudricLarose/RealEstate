@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(" Bienvenue ");
         deployementButtonAdd();
         saveDataInSQLITE();
+        Utils.isInternetAvailable(this);
+
 
     }
 

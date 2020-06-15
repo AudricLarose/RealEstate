@@ -168,6 +168,7 @@
                         android:id="@+id/TypeDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
                         android:text="Type"
                         android:textStyle="bold" />
 
@@ -331,8 +332,7 @@
                 android:layout_height="100dp"
                 android:layout_below="@+id/Relativedetails4"
                 android:layout_alignParentRight="true"
-
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="50dp" />
         </RelativeLayout>
     </ScrollView>
 

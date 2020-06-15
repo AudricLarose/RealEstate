@@ -1,8 +1,12 @@
 package com.openclassrooms.realestatemanager;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -10,22 +14,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +44,7 @@ import com.openclassrooms.realestatemanager.Api.ExtendedServiceEstate;
 import com.openclassrooms.realestatemanager.modele.MediaImage;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -76,10 +83,17 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     private Double lattitudeRealEState;
     private Double longitudeRealEState;
     private String url, date;
-    private boolean emptyField=true;
+    private boolean emptyField = true;
     private EstateViewModel estateViewModel;
     private List<String> listPhotoRealistetate = new ArrayList<>();
+    private List<String> descritpionImage=new ArrayList<>();
 
+    public static Uri getImageUri(Activity inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +132,6 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         return false;
     }
 
-
     private void giveEstat2ViewsIfNotNull() {
         editTextCase();
         spinnerCaseType();
@@ -129,8 +142,10 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     private void ChipCase() {
         List<Chip> checkForPosition = initiateChipes();
         for (int i = 0; i < checkForPosition.size(); i++) {
-            if (checkForPosition.get(i).getText().equals(estate.getNearby().get(0))) {
-                checkForPosition.get(i).setChecked(true);
+            if (estate.getNearby() != null &&  estate.getNearby().size()>0) {
+                if (checkForPosition.get(i).getText().equals(estate.getNearby().get(0))) {
+                    checkForPosition.get(i).setChecked(true);
+                }
             }
         }
 
@@ -140,7 +155,8 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         eAdress.getEditText().setText(estate.getAdresse());
         eChambre.getEditText().setText(estate.getChambre());
         eDescr.getEditText().setText(estate.getDescription());
-        eMarket.setText(estate.getAdresse());
+        eMarket.setText(estate.getMarket());
+        edit_ontheSell.setText(estate.getSelled());
         ePiece.getEditText().setText(estate.getPiece());
         ePostal.getEditText().setText(estate.getPostal());
         ePrix.getEditText().setText(estate.getPrix());
@@ -239,7 +255,6 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
             }
         }
     }
-
 
     private void initiateEditText() {
         eAdress = findViewById(R.id.edit_adresse);
@@ -347,11 +362,17 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         });
     }
 
-
     private RealEstate modifyEstate() {
-        estate.setAdresse(globalResult.get(0));
-        estateViewModel = new EstateViewModel(getApplication());
-        estateViewModel.UploadThisData(estate);
+        saveEntryEditText();
+        RealEstate estateNew = new RealEstate(String.valueOf(true), String.valueOf(isItChecked), globalResultEstate.get("TypeEstate"), globalResultEstate.get("nameEstate"), resultsValidatedByUser, globalResultEstate.get("Adresse"),
+                globalResultEstate.get("Chambre"), globalResultEstate.get("Description"), date, globalResultEstate.get("Postal"), globalResultEstate.get("Piece")
+                , globalResultEstate.get("Prix"), globalResultEstate.get("SDB"), globalResultEstate.get("Surface"), globalResultEstate.get("Ville"), globalResultEstate.get("dateSell"), lattitudeRealEState, longitudeRealEState, url, listPhotoRealistetate,descritpionImage);
+        estateNew.setId(estate.getId());
+        estateViewModel = ViewModelProviders.of(this).get(EstateViewModel.class);
+        estateViewModel.UpdateThisData(estateNew);
+//        estate.setAdresse(globalResult.get(0));
+//        estateViewModel = new EstateViewModel(getApplication());
+//        estateViewModel.UpdateThisData(estate);
         return null;
     }
 
@@ -370,7 +391,6 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         });
     }
 
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         Calendar c = Calendar.getInstance();
@@ -388,28 +408,27 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         }
     }
 
-
     private void initiateAndActivateOkButton() {
         btnOk = findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveEntryEditText();
-                for (int i = 0; i < globalResultEstate.size(); i++) {
-                    if (globalResultEstate.get(i) != null) {
-                        if (globalResultEstate.get(i).isEmpty()) {
-                            emptyField = true;
-                        }
-                    } else {
-                        emptyField = true;
-                    }
-                }
-                if (!emptyField){
-                    showGlobalResult();
-                    finish();
-                } else{
-                    Toast.makeText(AddInformationActivity.this, "There is an Empty Field", Toast.LENGTH_SHORT).show();
-                }
+//                for (int i = 0; i < globalResultEstate.size(); i++) {
+//                    if (globalResultEstate.get(i) != null) {
+//                        if (globalResultEstate.get(i).isEmpty()) {
+//                            emptyField = true;
+//                        }
+//                    } else {
+//                        emptyField = true;
+//                    }
+//                }
+//                if (!emptyField) {
+                showGlobalResult();
+                finish();
+//                } else {
+//                    Toast.makeText(AddInformationActivity.this, "There is an Empty Field", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }
@@ -445,11 +464,10 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     private void showGlobalResult() {
         RealEstate estate = new RealEstate(String.valueOf(true), String.valueOf(isItChecked), globalResultEstate.get("TypeEstate"), globalResultEstate.get("nameEstate"), resultsValidatedByUser, globalResultEstate.get("Adresse"),
                 globalResultEstate.get("Chambre"), globalResultEstate.get("Description"), date, globalResultEstate.get("Postal"), globalResultEstate.get("Piece")
-                , globalResultEstate.get("Prix"), globalResultEstate.get("SDB"), globalResultEstate.get("Surface"), globalResultEstate.get("Ville"), globalResultEstate.get("dateSell"), lattitudeRealEState, longitudeRealEState, url, listPhotoRealistetate);
+                , globalResultEstate.get("Prix"), globalResultEstate.get("SDB"), globalResultEstate.get("Surface"), globalResultEstate.get("Ville"), globalResultEstate.get("dateSell"), lattitudeRealEState, longitudeRealEState, url, listPhotoRealistetate,descritpionImage);
         estateViewModel = new EstateViewModel(getApplication());
         estateViewModel.InsertThisData(estate);
     }
-
 
     private void initiateAndActivateCameraButton() {
         btnLocalPhoto = findViewById(R.id.btn_photo_on_phone);
@@ -457,7 +475,7 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
             @Override
             public void onClick(View v) {
                 Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 0);
+                startActivityForResult(takePicture, IMAGE_REQUEST);
             }
         });
 
@@ -465,12 +483,12 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     }
 
     private void initiateAndActivateLocalButton() {
-        btnCameraPhoto = findViewById(R.id.btn_take_photo);
+        btnCameraPhoto = findViewById(R.id.btn_local_photo);
         btnCameraPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, IMAGE_REQUEST);
+                askDescription();
+
             }
         });
     }
@@ -479,28 +497,61 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
-            Uri selectedImage = data.getData();
+            Bitmap selectedImageBitmap = (Bitmap) data.getExtras().get("data");
+            Uri selectedImage = getImageUri(this, selectedImageBitmap);
             listPhotoRealistetate.add(selectedImage.toString());
         }
         if ((requestCode == REQUESTCODEGALLERY) && (resultCode == RESULT_OK)) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            if (selectedImage != null) {
-                Cursor cursor = getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    listPhotoRealistetate.add(picturePath);
-                    cursor.close();
-                }
-            }
+            listPhotoRealistetate.add(selectedImage.toString());
+
+//            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//            if (selectedImage != null) {
+//                Cursor cursor = getContentResolver().query(selectedImage,
+//                        filePathColumn, null, null, null);
+//                if (cursor != null) {
+//                    cursor.moveToFirst();
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    String picturePath = cursor.getString(columnIndex);
+//                    listPhotoRealistetate.add(picturePath);
+//                    cursor.close();
+//                }
+//            }
         }
     }
 
+        private  void askDescription() {
+            AlertDialog alertDialog = eraseImageAlertDIalg();
+            alertDialog.show();
+        }
+
+        private  AlertDialog eraseImageAlertDIalg() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final View view= LayoutInflater.from(this).inflate(R.layout.input_description, null);
+            builder.setView(view).setTitle("Effacer Image").setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    EditText editText= view.findViewById(R.id.inputDescripptionEdittext);
+                    descritpionImage.add(editText.getText().toString());
+                    goToGalleryPhoto();
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {}
+            });
+
+            return builder.create();
+
+
+    }
+
+    private void goToGalleryPhoto() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, REQUESTCODEGALLERY);
+    }
+
     private void deployRecyclerView() {
-        adapter = new AdaptateurImage(listPhotoRealistetate);
+        adapter = new AdaptateurImage(listPhotoRealistetate,this,descritpionImage );
         recyclerView = findViewById(R.id.Recyclerviewphotos);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(AddInformationActivity.this, RecyclerView.HORIZONTAL, false);

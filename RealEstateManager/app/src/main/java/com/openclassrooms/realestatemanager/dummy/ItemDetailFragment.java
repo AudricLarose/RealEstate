@@ -3,17 +3,7 @@ package com.openclassrooms.realestatemanager.dummy;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,9 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.openclassrooms.realestatemanager.ActivityDetails;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.openclassrooms.realestatemanager.AdaptateurImage;
 import com.openclassrooms.realestatemanager.AddInformationActivity;
 import com.openclassrooms.realestatemanager.Api.DI;
@@ -34,9 +30,7 @@ import com.openclassrooms.realestatemanager.modele.MediaImage;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -46,9 +40,9 @@ import java.util.Locale;
  */
 public class ItemDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
-    private DummyContent.DummyItem mItem;
     private static RealEstate estateGrabbed;
-    private TextView adresse, ville, region, pays, surfaceChiffre, priceChiffre, roomChiffre, typeCHiffre, bathroomchiffre, nearbyChiffre, chamber;
+    private DummyContent.DummyItem mItem;
+    private TextView adresse, ville, region, pays, surfaceChiffre, priceChiffre, roomChiffre, typeCHiffre, bathroomchiffre, nearbyChiffre, vendu, chamber, description;
     private AdaptateurImage adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
@@ -57,8 +51,10 @@ public class ItemDetailFragment extends Fragment {
     private List<RealEstate> listRealEstate = serviceEstate.getRealEstateList();
     private boolean amIInEuro = true;
     private LatLng latLngRealestate;
-    private  Bundle mapViewBundle=null;
+    private Bundle mapViewBundle = null;
     private ImageView mImageView;
+    private RelativeLayout relativeLayout;
+
     public ItemDetailFragment() {
     }
 
@@ -90,19 +86,18 @@ public class ItemDetailFragment extends Fragment {
         realStateIfExist(rootView);
         return rootView;
     }
+
+
     private void deployCarteImageView(String url, View container) {
         ImageView imageCarte = container.findViewById(R.id.mapLiteView);
         Picasso.get().load(url).into(imageCarte);
     }
 
-
-
-
     private void deployRecyclerViewDetails(View container) {
-        adapter = new AdaptateurImage(estateGrabbed.getPhotosReal());
+        adapter = new AdaptateurImage(estateGrabbed.getPhotosReal(), getContext(), estateGrabbed.getDescriptionImage());
         recyclerView = container.findViewById(R.id.RecycleDetails);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL , false);
+        layoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -113,6 +108,7 @@ public class ItemDetailFragment extends Fragment {
 
     private void initiateTextView(View container) {
         adresse = container.findViewById(R.id.adresseDetails);
+        description = container.findViewById(R.id.descirptionInputDetails);
         ville = container.findViewById(R.id.villeDetails);
         region = container.findViewById(R.id.regionVille);
         pays = container.findViewById(R.id.paysDetails);
@@ -130,7 +126,9 @@ public class ItemDetailFragment extends Fragment {
         if (estateGrabbed != null) {
             deployRecyclerViewDetails(container);
             shareInformationsDetails(container);
-            findAddress(container);
+            try2FindAddress(container);
+            initiateSellChecker(container);
+
         }
     }
 
@@ -152,6 +150,22 @@ public class ItemDetailFragment extends Fragment {
         bathroomchiffre.setText(estateGrabbed.getSdb());
         nearbyChiffre.setText(estateGrabbed.getNearby().toString());
         chamber.setText(estateGrabbed.getChambre());
+        description.setText(estateGrabbed.getDescription());
+    }
+
+    private void initiateSellChecker(View rootView) {
+        relativeLayout = rootView.findViewById(R.id.RelativeSelledDetails);
+        if (!Boolean.valueOf(estateGrabbed.getIschecked())) {
+            relativeLayout.setVisibility(View.VISIBLE);
+            appearDateSell(rootView);
+        } else {
+            relativeLayout.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void appearDateSell(View rootView) {
+        vendu = rootView.findViewById(R.id.dateSelledDetails);
+        vendu.setText(estateGrabbed.getSelled());
     }
 
     @Override
@@ -172,34 +186,51 @@ public class ItemDetailFragment extends Fragment {
         }
     }
 
-    public void findAddress(View container){
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        try {
-            List<Address> addressList= geocoder.getFromLocationName(estateGrabbed.getAdresse().toString(),1);
-            if (addressList!=null && addressList.size()>0){
-                adresse.setText(addressList.get(0).getThoroughfare());
-                ville.setText(estateGrabbed.getTown());
-                pays.setText(addressList.get(0).getCountryName());
-                latLngRealestate= new LatLng(addressList.get(0).getLatitude(),addressList.get(0).getLongitude());
-                String url=Utils.linkBuilder(latLngRealestate);
-                deployCarteImageView(url,container);
 
+    public void try2FindAddress(final View container) {
+        Utils.findAddress(getContext(), estateGrabbed.getAdresse(), new Utils.AdressGenerators() {
+            @Override
+            public void onSuccess(List<Address> addressList) {
+                findTheRightAdress(container,addressList);
             }
-        } catch (IOException e) {
-            adresse.setText(estateGrabbed.getAdresse());
-            ville.setText(estateGrabbed.getTown());
-            pays.setText(estateGrabbed.getTown()); }
+
+            @Override
+            public void onEchec() {
+                findTheDefaultAdress();
+            }
+
+            @Override
+            public void onCrash() {
+                findTheDefaultAdress();
+            }
+        });
+    }
+
+    private void findTheDefaultAdress() {
+        adresse.setText(estateGrabbed.getAdresse());
+        ville.setText(estateGrabbed.getTown());
+        pays.setText(estateGrabbed.getTown());
+    }
+
+    private void findTheRightAdress(View container, List<Address> addressList) {
+        adresse.setText(addressList.get(0).getThoroughfare());
+        ville.setText(estateGrabbed.getTown());
+        pays.setText(addressList.get(0).getCountryName());
+        latLngRealestate = new LatLng(addressList.get(0).getLatitude(), addressList.get(0).getLongitude());
+        String url = Utils.linkBuilder(latLngRealestate);
+        deployCarteImageView(url, container);
     }
 
 
     private void modifyThisEstate() {
-        RealEstate estate=grabEstatFromMainActivity();
-        if (estate!=null) {
+        RealEstate estate = grabEstatFromMainActivity();
+        if (estate != null) {
             Intent intent = new Intent(getContext(), AddInformationActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("RealEstate", estate);
             intent.putExtras(bundle);
             startActivity(intent);
+            getActivity().finish();
         }
     }
 

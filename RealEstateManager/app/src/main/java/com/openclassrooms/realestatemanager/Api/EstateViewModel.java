@@ -24,8 +24,8 @@ public class EstateViewModel extends AndroidViewModel {
         public void InsertThisData (RealEstate realEstate){
             repositoryEstate.InsertData(realEstate);
         }
-        public void UploadThisData (RealEstate realEstate){
-            repositoryEstate.uploadData(realEstate);
+        public void UpdateThisData(RealEstate realEstate){
+            repositoryEstate.upDateData(realEstate);
         }
         public void deleteThisData (RealEstate realEstate){
             repositoryEstate.deleteData(realEstate);

@@ -39,7 +39,19 @@
         app:fab_colorNormal="@color/colorAccent"
         app:fab_colorPressed="@color/colorAccent"
         app:fab_shadowColor="@color/colorAccent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_add_circle_white_24dp"
+        tools:ignore="VectorDrawableCompat" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/noInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:fab_colorNormal="@android:color/holo_orange_dark"
+        app:fab_colorPressed="@android:color/holo_orange_dark"
+        app:fab_shadowColor="@android:color/holo_orange_dark"
+        app:srcCompat="@drawable/ic_signal_cellular_connected_no_internet_0_bar_red_24dp"
+        tools:ignore="VectorDrawableCompat" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

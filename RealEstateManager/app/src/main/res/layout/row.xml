@@ -6,11 +6,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="10dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:alpha="0.9"
             android:background="@drawable/round_for_row">
 
@@ -20,8 +20,20 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_margin="12.5dp"
+            android:background="@drawable/round_for_row"
             />
-
+        <TextView
+            android:id="@+id/selledText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vendu"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/imageRow"
+            android:layout_marginRight="20dp"
+            />
         <RelativeLayout
             android:id="@+id/Row"
             android:layout_width="wrap_content"

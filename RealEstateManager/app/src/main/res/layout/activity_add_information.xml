@@ -46,9 +46,10 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/bebas"
                     android:hint="Adresse"
                     android:textAlignment="center"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="15sp" />
 
             </com.github.florent37.materialtextfield.MaterialTextField>
@@ -72,9 +73,11 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas"
                         android:hint="Postale"
+
                         android:inputType="phone"
-                        android:textColor="#bedac3"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -95,6 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
 
+                    android:fontFamily="@font/bebas"
+
                     android:text="Ville" />
 
                 <com.github.florent37.materialtextfield.MaterialTextField
@@ -110,8 +115,10 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas"
+
                         android:hint="Ville"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -130,6 +137,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bebas"
+
                     android:text="sur le marché depuis "
                     android:textColor="#bedac3" />
 
@@ -140,6 +149,8 @@
                     android:layout_below="@+id/text_onthemarket"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
+                    android:fontFamily="@font/bebas"
+
                     android:text=" "
                     android:textColor="#bedac3" />
 
@@ -147,12 +158,14 @@
                     android:id="@+id/btn_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_below="@+id/edit_onthemarket"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
-
                     android:background="@drawable/button"
-                    android:text="Date" />
+                    android:fontFamily="@font/bebas"
+                    android:text="Date"
+                    android:textColor="@android:color/white" />
             </RelativeLayout>
 
             <Switch
@@ -160,8 +173,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/RelativeVille"
+
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
+                android:fontFamily="@font/bebas"
                 android:text="Vendu ?"
                 android:textColor="#bedac3" />
 
@@ -181,6 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
+                    android:fontFamily="@font/bebas"
+
                     android:text="date"
                     android:textColor="#bedac3" />
 
@@ -208,7 +225,9 @@
                     android:id="@+id/text_prix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bebas"
 
                     android:text="Prix" />
 
@@ -226,6 +245,8 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas"
+
                         android:hint="Prix"
                         android:inputType="phone"
                         android:textColor="@android:color/black"
@@ -246,7 +267,9 @@
                     android:id="@+id/text_surface"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bebas"
 
                     android:text="Surface" />
 
@@ -255,20 +278,24 @@
                     android:layout_width="match_parent"
 
                     android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/round"
+
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
-
                     app:mtf_labelColor="#bedac3">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/bebas"
                         android:hint="Surface"
 
                         android:inputType="phone"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -285,9 +312,10 @@
                 <TextView
                     android:id="@+id/text_pieces"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
+
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bebas"
                     android:text="pieces"
 
                     />
@@ -297,8 +325,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:background="@drawable/round"
+                    android:layout_alignParentEnd="true"
 
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@drawable/round"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
@@ -308,7 +340,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Piece"
                         android:inputType="phone"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -321,6 +353,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeSurface"
                 android:layout_centerHorizontal="true"
+                android:layout_marginLeft="40dp"
                 android:layout_toRightOf="@+id/RelativePiece">
 
                 <TextView
@@ -328,6 +361,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+
+                    android:fontFamily="@font/bebas"
 
                     android:text="chambres"
 
@@ -345,9 +380,11 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas"
+
                         android:hint="Chambre"
                         android:inputType="phone"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -366,8 +403,9 @@
                     android:id="@+id/text_sdb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_centerHorizontal="true"
+
+                    android:fontFamily="@font/bebas"
 
                     android:text="SDB" />
 
@@ -384,9 +422,11 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas"
                         android:hint="Sdb"
+
                         android:inputType="phone"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -400,6 +440,8 @@
                 android:layout_below="@+id/RelativeSdb"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
+
+                android:fontFamily="@font/bebas"
                 android:text="Nom De l'Agent"
                 android:textColor="#bedac3" />
 
@@ -422,6 +464,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nom_agent"
                 android:layout_marginBottom="20dp"
+
+                android:fontFamily="@font/bebas"
                 android:text="Description"
                 android:textColor="#bedac3" />
 
@@ -441,7 +485,9 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/bebas"
                     android:hint="Description"
+
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
 
@@ -454,7 +500,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_descript"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/bebas"
                 android:text="proximité"
+
                 android:textColor="#bedac3" />
 
             <RelativeLayout
@@ -463,7 +511,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/text_proximité"
-                android:layout_marginHorizontal="50dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:layout_marginBottom="30dp">
 
                 <com.google.android.material.chip.Chip
@@ -471,6 +520,8 @@
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/bebas"
+                    android:layout_marginHorizontal="40dp"
                     android:text="ecoles"
                     android:textColor="#bedac3"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
@@ -483,7 +534,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/check_ecole"
+                    android:fontFamily="@font/bebas"
                     android:text="magasins"
+
                     android:textColor="#bedac3"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
@@ -494,21 +547,27 @@
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/check_magasin"
+                    android:layout_below="@+id/check_magasin"
+                    android:layout_toRightOf="@+id/check_parc"
+                    android:fontFamily="@font/bebas"
                     android:text="Station"
                     android:textColor="#bedac3"
+
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/check_parc"
+                    android:layout_marginHorizontal="40dp"
+
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/check_ecole"
-                    android:layout_marginLeft="25dp"
+                    android:fontFamily="@font/bebas"
                     android:text="Parc"
+
                     android:textColor="#bedac3"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
@@ -519,8 +578,10 @@
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/check_ecole"
-                    android:layout_toRightOf="@+id/check_parc"
+                    android:layout_below="@+id/check_parc"
+                    android:fontFamily="@font/bebas"
+                    android:layout_marginHorizontal="40dp"
+
                     android:text="station Bus/Metro"
                     android:textColor="#bedac3"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
@@ -534,27 +595,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relativeCBox"
+
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/button"
-
-                android:text="Local photo" />
+                android:fontFamily="@font/bebas"
+                android:padding="10dp"
+                android:text="Take Photo"
+                android:textColor="@android:color/white" />
 
             <Button
-                android:id="@+id/btn_take_photo"
+                android:id="@+id/btn_local_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relativeCBox"
                 android:layout_alignParentRight="true"
+
                 android:layout_marginRight="50dp"
                 android:background="@drawable/button"
-
-                android:text="Take a photo" />
+                android:fontFamily="@font/bebas"
+                android:padding="10dp"
+                android:text="Local photo"
+                android:textColor="@android:color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Recyclerviewphotos"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_below="@+id/btn_take_photo"
+                android:layout_below="@+id/btn_local_photo"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@android:color/darker_gray" />
@@ -564,10 +631,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Recyclerviewphotos"
+
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/button"
-
-                android:text="Cancel" />
+                android:fontFamily="@font/bebas"
+                android:padding="10dp"
+                android:text="Cancel"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btn_Modifier"
@@ -576,29 +646,39 @@
                 android:layout_below="@id/Recyclerviewphotos"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
-                android:background="@drawable/button"
-                android:text="Modifier"
 
+                android:background="@drawable/button"
+                android:fontFamily="@font/bebas"
+                android:padding="10dp"
+                android:text="Modifier"
+                android:textColor="@android:color/white"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_below="@id/Recyclerviewphotos"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
                 android:background="@drawable/button"
+                android:fontFamily="@font/bebas"
+                android:padding="10dp"
+                android:text="Ok"
 
-                android:text="Ok" />
+                android:textColor="@android:color/white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:alpha="0.1"
+                android:background="@drawable/round">
+
+            </RelativeLayout>
         </RelativeLayout>
 
     </ScrollView>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/round"
-        android:alpha="0.1">
-    </RelativeLayout>
+
 </RelativeLayout>

@@ -23,7 +23,6 @@
 
         </item>
     </group>
-
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_black_24dp"

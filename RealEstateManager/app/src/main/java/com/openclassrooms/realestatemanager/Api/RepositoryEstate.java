@@ -26,8 +26,8 @@ public class RepositoryEstate {
         public void deleteData(RealEstate estate) {
             new DeleteAsynchrone(estateDao).execute(estate);
         }
-        public void uploadData(RealEstate estate) {
-            new uploadAsynchrone(estateDao).execute(estate);
+        public void upDateData(RealEstate estate) {
+            new upDateAsynchrone(estateDao).execute(estate);
         }
         public void DeleteAllData() {
             new deleteAllAsynchrone(estateDao).execute();
@@ -63,16 +63,16 @@ public class RepositoryEstate {
                 return null;
             }
         }
-        public static class uploadAsynchrone extends AsyncTask<RealEstate,Void, Void>{
+        public static class upDateAsynchrone extends AsyncTask<RealEstate,Void, Void>{
             private EstateDao estateDao ;
 
-            private uploadAsynchrone(EstateDao estateDao) {
+            private upDateAsynchrone(EstateDao estateDao) {
                 this.estateDao = estateDao;
             }
 
             @Override
             protected Void doInBackground(RealEstate... estate) {
-                estateDao.uploadEstate(estate[0]);
+                estateDao.upDateEstate(estate[0]);
                 return null;
             }
         }

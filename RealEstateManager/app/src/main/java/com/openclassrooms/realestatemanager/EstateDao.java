@@ -21,7 +21,7 @@ import java.util.List;
         long insertEstate(RealEstate task);
 
         @Update
-        int uploadEstate(RealEstate task);
+        int upDateEstate(RealEstate task);
 
         @Query("DELETE FROM bdd WHERE id = :itemid")
         int deleteEstate(long itemid);

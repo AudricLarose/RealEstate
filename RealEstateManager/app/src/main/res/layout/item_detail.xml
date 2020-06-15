@@ -13,16 +13,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="-2dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white" />
 
+
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/RecycleDetails"
-    android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/RecycleDetails">
 
 
         <RelativeLayout
@@ -36,7 +40,6 @@
                 android:layout_marginHorizontal="20dp"
                 android:alpha="0.7"
                 android:background="@drawable/round_details">
-
             </RelativeLayout>
 
             <TextView
@@ -51,13 +54,13 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+
             <TextView
                 android:id="@+id/descirptionInputDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/descirptionDetails"
                 android:layout_marginLeft="50dp"
-
                 android:layout_marginBottom="20dp"
                 android:text="Description"
                 android:textColor="@android:color/white" />
@@ -169,6 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Type"
+                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
                     <TextView
@@ -221,7 +225,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="100dp">
+                    android:layout_marginRight="100dp"
+                    android:layout_below="@+id/RelativeBathroomDetails"
+                    >
 
                     <TextView
                         android:id="@+id/NearbyDetails"
@@ -238,7 +244,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/NearbyDetails"
-
                         android:text="chiffres"
                         android:textColor="@android:color/white" />
                 </RelativeLayout>
@@ -251,29 +256,56 @@
                 android:layout_below="@+id/Relativedetails3">
 
                 <RelativeLayout
-                    android:id="@+id/RelativeRoomsDetails"
+                android:id="@+id/RelativeRoomsDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/RoomsDetails"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:text="Bedrooms"
+                    android:textColor="@android:color/white"
+
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/RoomschiffresDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginBottom="20dp">
+                    android:layout_below="@+id/RoomsDetails"
+
+                    android:text="chiffres"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/RelativeSelledDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_below="@+id/RelativeRoomsDetails"
+                    android:layout_alignParentRight="true"
+
+                    >
 
                     <TextView
-                        android:id="@+id/RoomsDetails"
+                        android:id="@+id/selledDetails"
                         android:layout_width="wrap_content"
-
                         android:layout_height="wrap_content"
-                        android:text="Bedrooms"
-                        android:textColor="@android:color/white"
-
+                        android:text="Vendu le"
+                        android:textColor="@android:color/holo_red_dark"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/RoomschiffresDetails"
+                        android:id="@+id/dateSelledDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/RoomsDetails"
-
                         android:text="chiffres"
+                        android:layout_below="@+id/selledDetails"
                         android:textColor="@android:color/white" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -323,16 +355,16 @@
                     android:text="Pays"
                     android:textColor="@android:color/white" />
 
+                <ImageView
+                    android:id="@+id/mapLiteView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginRight="50dp" />
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/mapLiteView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/Relativedetails4"
-                android:layout_alignParentRight="true"
 
-                android:layout_marginRight="20dp" />
         </RelativeLayout>
     </ScrollView>
 

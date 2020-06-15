@@ -78,6 +78,7 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
         return new LeHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull LeHolder holder, int position) {
         estate = liste.get(position);
@@ -89,8 +90,16 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
 
         }
         holder.ville.setText(estate.getTown());
-        Picasso.get().load(Uri.parse(estate.getPhotosReal().get(0))).into(holder.imageRealestate);
+        if (estate.getPhotosReal()!=null && estate.getPhotosReal().size()>0) {
+            Picasso.get().load(Uri.parse(estate.getPhotosReal().get(0))).into(holder.imageRealestate);
+        }
         holder.relativeLayout.setOnClickListener(mOnClickListener);
+        if (!Boolean.valueOf(estate.getIschecked())) {
+            holder.selled.setText(" Vendu !");
+        } else {
+            holder.selled.setText(" Disponible !");
+
+        }
     }
 
     @Override
@@ -103,7 +112,7 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
     }
 
     public static class LeHolder extends RecyclerView.ViewHolder {
-        private TextView type, prix, ville;
+        private TextView type, prix, ville, selled;
         private ImageView imageRealestate;
         private RelativeLayout relativeLayout;
 
@@ -115,6 +124,7 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
             type = itemView.findViewById(R.id.TextTypeRow);
             prix = itemView.findViewById(R.id.TextPrixRow);
             ville = itemView.findViewById(R.id.TextTownRow);
+            selled = itemView.findViewById(R.id.selledText);
         }
     }
 

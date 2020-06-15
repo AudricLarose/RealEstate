@@ -1,5 +1,8 @@
 package com.openclassrooms.realestatemanager.dummy;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,11 +11,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.openclassrooms.realestatemanager.Adaptateur;
 import com.openclassrooms.realestatemanager.AddInformationActivity;
@@ -47,7 +50,7 @@ public class ItemListActivity extends AppCompatActivity {
     private List<RealEstate> listRealEstate = serviceEstate.getRealEstateList();
     private Adaptateur adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private boolean amIInEuro=true;
+    private boolean amIInEuro = true;
     private EstateViewModel estateViewModel;
 
     @Override
@@ -56,14 +59,21 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        toolbar.setTitle("Bienvenue !");
         detailsIfTablet();
         saveDataInSQLITE();
         deployementButtonAdd();
+        deployementButtonInternet();
+        Utils.isInternetAvailable(this);
+        Utils.internetIsOn(this);
+//        Utils.GPSOnVerify(this);
+
+
     }
 
+
     private void deployRecyclerView() {
-        adapter = new Adaptateur(listRealEstate,mTwoPane,this);
+        adapter = new Adaptateur(listRealEstate, mTwoPane, this);
         recyclerView = findViewById(R.id.RecyclerviewEstate);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(ItemListActivity.this);
@@ -72,7 +82,7 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void saveDataInSQLITE() {
-        estateViewModel= ViewModelProviders.of(this).get(EstateViewModel.class);
+        estateViewModel = ViewModelProviders.of(this).get(EstateViewModel.class);
         estateViewModel.SelectAllThosedatas().observe(this, new Observer<List<RealEstate>>() {
             @Override
             public void onChanged(List<RealEstate> realEstates) {
@@ -94,8 +104,50 @@ public class ItemListActivity extends AppCompatActivity {
         activateButtonAdd(addButton);
     }
 
+    private void deployementButtonInternet() {
+        final ImageButton internetButton = initiateButtonInternet();
+        activateButtonInternet(internetButton);
+    }
+
+    private static void buttonInternetInfo(Context context) {
+        AlertDialog alertDialog = buttonInternetInfoDialog(context);
+        alertDialog.show();
+    }
+
+    private static AlertDialog buttonInternetInfoDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Vous devez activer votre connexion internet pour profiter de l'application." +
+                " Cependant vos informations sont sauvegarder sur votre téléphone et seront envoyées" +
+                "lorsque vous aurez de nouveau une connection").setTitle("Alert Internet").setPositiveButton("J'ai bien activé ma connexion", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Utils.InternetOnVerify(context);
+            }
+        });
+        return builder.create();
+    }
+
+    private void activateButtonInternet(ImageButton internetButton) {
+      if (Utils.InternetOnVerify(this)){
+          internetButton.setVisibility(View.GONE);
+      } else {
+          internetButton.setVisibility(View.VISIBLE);
+          internetButton.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  buttonInternetInfo(ItemListActivity.this);
+              }
+          });
+      }
+    }
+
+
     private ImageButton initiateButtonAdd() {
         return findViewById(R.id.buttonadd);
+    }
+
+    private ImageButton initiateButtonInternet() {
+        return findViewById(R.id.noInternet);
     }
 
     private void activateButtonAdd(ImageButton addButton) {
@@ -128,12 +180,12 @@ public class ItemListActivity extends AppCompatActivity {
                 return true;
             case R.id.subcroissant:
                 List<RealEstate> realEstateListcroissant = Utils.sortedbyPriceCroissant(listRealEstate);
-                adapter = new Adaptateur(realEstateListcroissant,mTwoPane,this);
+                adapter = new Adaptateur(realEstateListcroissant, mTwoPane, this);
                 recyclerView.setAdapter(adapter);
                 return true;
             case R.id.subDecroissant:
                 List<RealEstate> realEstateListdecroissant = Utils.sortedbyPriceDecroissant(listRealEstate);
-                adapter = new Adaptateur(realEstateListdecroissant,mTwoPane,this);
+                adapter = new Adaptateur(realEstateListdecroissant, mTwoPane, this);
                 recyclerView.setAdapter(adapter);
                 return true;
             default:
@@ -142,29 +194,35 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void deploySearchActivity() {
-        Intent intent= new Intent(ItemListActivity.this, SearchActivity.class);
+        Intent intent = new Intent(ItemListActivity.this, SearchActivity.class);
         startActivity(intent);
     }
 
     private void deployGoogleMap() {
-        Intent intent= new Intent(ItemListActivity.this, MapsActivity.class);
-        startActivity(intent);
+        Utils.GPSOnVerify(this, new Utils.GPSCallBAck() {
+            @Override
+            public void onRetrieve() {
+                Intent intent = new Intent(ItemListActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
-    private void knowIfConvertToEuroOrDollar(){
-        if (amIInEuro){
+    private void knowIfConvertToEuroOrDollar() {
+        if (amIInEuro) {
             convertEuroList();
-            amIInEuro=false;
+            amIInEuro = false;
             changeMyEuroParameter();
         } else {
             convertDollarList();
-            amIInEuro=true;
+            amIInEuro = true;
             changeMyEuroParameter();
         }
     }
 
-    private void changeMyEuroParameter(){
-        if (amIInEuro){
+    private void changeMyEuroParameter() {
+        if (amIInEuro) {
             for (int i = 0; i < listRealEstate.size(); i++) {
                 listRealEstate.get(i).setInEuro("true");
             }
@@ -176,7 +234,7 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void convertDollarList() {
-        for (int i = 0; i < listRealEstate.size(); i ++ ) {
+        for (int i = 0; i < listRealEstate.size(); i++) {
             int converted = Utils.convertDollarToEuro(Integer.valueOf(listRealEstate.get(i).getPrix()));
             listRealEstate.get(i).setPrix(String.valueOf((converted)));
         }

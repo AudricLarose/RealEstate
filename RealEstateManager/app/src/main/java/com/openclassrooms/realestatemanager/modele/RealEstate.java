@@ -21,6 +21,9 @@ public class RealEstate implements Serializable {
     private String town;
     private String description;
     private String nomAgent;
+    
+    @TypeConverters(Converters.class)
+    private List<String> descriptionImage;
 
     @TypeConverters(Converters.class)
     private List<String> nearby;
@@ -62,7 +65,7 @@ public class RealEstate implements Serializable {
         this.selled = selled;
     }
 
-    public RealEstate(String inEuro, String ischecked, String type, String nomAgent, List<String> nearby, String adresse, String chambre, String description, String market, String postal, String piece, String prix, String sdb, String surface, String town, String selled, Double latitude, Double longitude, String url, List<String> photosReal) {
+    public RealEstate(String inEuro, String ischecked, String type, String nomAgent, List<String> nearby, String adresse, String chambre, String description, String market, String postal, String piece, String prix, String sdb, String surface, String town, String selled, Double latitude, Double longitude, String url, List<String> photosReal, List<String> descriptionImage) {
         this.type = type;
         this.adresse = adresse;
         this.postal = postal;
@@ -83,6 +86,7 @@ public class RealEstate implements Serializable {
         this.photosReal = photosReal;
         this.inEuro = inEuro;
         this.selled = selled;
+        this.descriptionImage = descriptionImage;
     }
 
     public static RealEstate fromContentValues(ContentValues contentValues) {
@@ -149,6 +153,14 @@ public class RealEstate implements Serializable {
         }
         return estate;
 
+    }
+
+    public List<String> getDescriptionImage() {
+        return descriptionImage;
+    }
+
+    public void setDescriptionImage(List<String> descriptionImage) {
+        this.descriptionImage = descriptionImage;
     }
 
     public String getSelled() {
