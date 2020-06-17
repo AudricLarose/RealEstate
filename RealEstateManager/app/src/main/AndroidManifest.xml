@@ -53,7 +53,6 @@
 
         <activity android:name=".MapsActivity" />
         <activity android:name=".AgentActivity" />
-        <activity android:name=".ActivityDetails" />
         <activity android:name=".AddInformationActivity" />
         <activity android:name=".MainActivity">
         </activity>

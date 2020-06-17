@@ -86,7 +86,7 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
         if (Boolean.valueOf(estate.getInEuro())) {
             holder.prix.setText(Utils.getEuroFormat(Integer.parseInt(estate.getPrix())));
         } else {
-            holder.prix.setText(Utils.getDollarFormat(Integer.parseInt(estate.getPrix())));
+//            holder.prix.setText(Utils.getDollarFormat(Integer.parseInt(estate.getPrix())));
 
         }
         holder.ville.setText(estate.getTown());
@@ -94,11 +94,13 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
             Picasso.get().load(Uri.parse(estate.getPhotosReal().get(0))).into(holder.imageRealestate);
         }
         holder.relativeLayout.setOnClickListener(mOnClickListener);
-        if (!Boolean.valueOf(estate.getIschecked())) {
-            holder.selled.setText(" Vendu !");
-        } else {
-            holder.selled.setText(" Disponible !");
+        if (estate.getIschecked()!=null && estate.getSelled()!=null) {
+            if (!Boolean.valueOf(estate.getIschecked()) && estate.getSelled().equals("date")) {
+                holder.selled.setText(" Disponible !");
+            } else {
+                holder.selled.setText(" Vendu !");
 
+            }
         }
     }
 

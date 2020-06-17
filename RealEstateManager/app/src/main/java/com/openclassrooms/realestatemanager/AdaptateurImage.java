@@ -46,7 +46,6 @@ public class AdaptateurImage extends RecyclerView.Adapter<AdaptateurImage.LeHold
     @Override
     public void onBindViewHolder(@NonNull LeHolder holder, final int position) {
         final String estateImage = liste.get(position);
-//            holder.imageRealEstate.setImageURI(Uri.parse(estateImage));
         Picasso.get().load(Uri.parse(estateImage)).into(holder.imageRealEstate);
         holder.imageRealEstate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +53,7 @@ public class AdaptateurImage extends RecyclerView.Adapter<AdaptateurImage.LeHold
                 erAseImage(context, estateImage,position);
             }
         });
-        holder.details_description.setText(listDescription.get(position));
+         holder.details_description.setText(listDescription.get(position));
     }
 
 
@@ -62,9 +61,7 @@ public class AdaptateurImage extends RecyclerView.Adapter<AdaptateurImage.LeHold
         AlertDialog alertDialog = eraseImageAlertDIalg(context,estateImage,position);
         alertDialog.show();
     }
-    interface eraseEvent{
-        void onFinish();
-    }
+
 
     private AlertDialog eraseImageAlertDIalg(final Context context, final String estateImage, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

@@ -59,7 +59,7 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Bienvenue !");
+        setTitle("Bienvenue !");
         detailsIfTablet();
         saveDataInSQLITE();
         deployementButtonAdd();

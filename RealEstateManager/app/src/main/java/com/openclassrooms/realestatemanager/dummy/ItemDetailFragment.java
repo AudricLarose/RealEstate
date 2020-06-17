@@ -42,7 +42,7 @@ public class ItemDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
     private static RealEstate estateGrabbed;
     private DummyContent.DummyItem mItem;
-    private TextView adresse, ville, region, pays, surfaceChiffre, priceChiffre, roomChiffre, typeCHiffre, bathroomchiffre, nearbyChiffre, vendu, chamber, description;
+    private TextView adresse, ville, region, pays, surfaceChiffre, priceChiffre, roomChiffre, typeCHiffre, bathroomchiffre, nearbyChiffre, vendu, chamber, description, agent;
     private AdaptateurImage adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
@@ -110,7 +110,7 @@ public class ItemDetailFragment extends Fragment {
         adresse = container.findViewById(R.id.adresseDetails);
         description = container.findViewById(R.id.descirptionInputDetails);
         ville = container.findViewById(R.id.villeDetails);
-        region = container.findViewById(R.id.regionVille);
+//        region = container.findViewById(R.id.regionVille);
         pays = container.findViewById(R.id.paysDetails);
         surfaceChiffre = container.findViewById(R.id.SurfacechiffresDetails);
         priceChiffre = container.findViewById(R.id.PriceChiffresDetails);
@@ -119,7 +119,9 @@ public class ItemDetailFragment extends Fragment {
         bathroomchiffre = container.findViewById(R.id.BathroomchiffresDetails);
         nearbyChiffre = container.findViewById(R.id.NearbyChiffresDetails);
         chamber = container.findViewById(R.id.RoomschiffresDetails);
+        agent = container.findViewById(R.id.agentDetails);
     }
+
 
     private void realStateIfExist(View container) {
         estateGrabbed = grabEstatFromMainActivity();
@@ -127,7 +129,7 @@ public class ItemDetailFragment extends Fragment {
             deployRecyclerViewDetails(container);
             shareInformationsDetails(container);
             try2FindAddress(container);
-            initiateSellChecker(container);
+            initiateSwitchSell(container);
 
         }
     }
@@ -151,15 +153,18 @@ public class ItemDetailFragment extends Fragment {
         nearbyChiffre.setText(estateGrabbed.getNearby().toString());
         chamber.setText(estateGrabbed.getChambre());
         description.setText(estateGrabbed.getDescription());
+        agent.setText(estateGrabbed.getNomAgent());
     }
 
-    private void initiateSellChecker(View rootView) {
+    private void initiateSwitchSell(View rootView) {
         relativeLayout = rootView.findViewById(R.id.RelativeSelledDetails);
-        if (!Boolean.valueOf(estateGrabbed.getIschecked())) {
-            relativeLayout.setVisibility(View.VISIBLE);
-            appearDateSell(rootView);
-        } else {
-            relativeLayout.setVisibility(View.INVISIBLE);
+        if (estateGrabbed.getIschecked()!=null && estateGrabbed.getSelled()!=null) {
+            if (!Boolean.valueOf(estateGrabbed.getIschecked()) && estateGrabbed.getSelled().equals("date")) {
+                relativeLayout.setVisibility(View.INVISIBLE);
+            } else {
+                relativeLayout.setVisibility(View.VISIBLE);
+                appearDateSell(rootView);
+            }
         }
     }
 

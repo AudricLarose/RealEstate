@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
     <string-array name="Spinner_items">
-        <item>Appartement</item>
-        <item>Maison</item>
-        <item>Item1</item>
+    <item>Appartement</item>
+    <item>Maison</item>
+    <item>Loft</item>
+    <item>Garage</item>
+    <item>Autres</item>
+</string-array>
+    <string-array name="Spinner_photos">
+        <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
     </string-array>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC_WkswyFXkxGjNsC4Ie_zoMbA5WuiRR68</string>
     <string name="title_item_list">Items</string>

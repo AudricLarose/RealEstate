@@ -18,38 +18,34 @@
                 android:id="@+id/search_RelativePostal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/search_check_maison"
                 android:layout_marginLeft="50dp">
 
-                <TextView
-                    android:id="@+id/search_text_codepostal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="prix minimum " />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/minprice"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/search_text_codepostal"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
                     android:inputType="number"
+                    app:boxStrokeColor="@android:color/black"
+                    app:endIconMode="clear_text"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Adresse"
+                        android:hint="prix min"
+                        android:inputType="number"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             </RelativeLayout>
@@ -58,38 +54,34 @@
                 android:id="@+id/search_RelativeVille"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/search_check_maison"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp">
 
-                <TextView
-                    android:id="@+id/search_text_ville"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
 
-                    android:text="prix maximum" />
-
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/prixmax"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/search_text_ville"
                     android:layout_marginBottom="20dp"
+                    app:boxStrokeColor="@android:color/black"
+                    app:endIconMode="clear_text"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:hint="prix max"
                         android:inputType="number"
                         android:maxLength="7"
-                        android:text="" />
+                        android:text=""
+                        android:textColor="@android:color/black" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -171,35 +163,32 @@
                 android:layout_below="@+id/search_RelativeMaarket"
                 android:layout_marginLeft="50dp">
 
-                <TextView
-                    android:id="@+id/search_text_prix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
 
-                    android:text="Surface Min" />
-
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/surfacemin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/search_text_prix"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
+                    app:boxStrokeColor="@android:color/black"
+                    app:endIconMode="clear_text"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
-                        android:layout_width="60sp"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:hint="Surface Min"
                         android:inputType="number"
                         android:maxLength="10"
                         android:text="" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -211,30 +200,26 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp">
 
-                <TextView
-                    android:id="@+id/search_text_surface"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
 
-                    android:text="Surface Max" />
-
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/surfacemax"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/search_text_surface"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
                     android:ems="4"
+                    android:hint="Surface Max"
                     android:inputType="number"
+                    app:boxStrokeColor="@android:color/black"
+                    app:endIconMode="clear_text"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
-                        android:layout_width="60dp"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:inputType="number"
@@ -242,7 +227,7 @@
 
                         android:text="" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -253,38 +238,32 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginBottom="50dp">
 
-                <TextView
-                    android:id="@+id/search_text_pieces"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="pieces"
 
-                    />
-
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/piecemin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/search_text_pieces"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
                     android:ems="2"
                     android:inputType="number"
+                    app:boxStrokeColor="@android:color/black"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="80dp"
+                        android:layout_height="48dp"
                         android:layout_marginBottom="20dp"
+                        android:hint="Piece"
                         android:inputType="number"
                         android:maxLength="10"
                         android:text="" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -293,41 +272,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_RelativeSurface"
-                android:layout_marginTop="3dp"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/search_RelativePiece">
 
-                <TextView
-                    android:id="@+id/search_text_chambre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="chambres" />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ChamberMin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/search_text_chambre"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="0dp"
                     android:ems="2"
                     android:text=""
+                    app:boxStrokeColor="@android:color/black"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
-                        android:layout_width="40dp"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:hint="Chambre"
                         android:inputType="number"
                         android:maxLength="10"
 
                         android:text="" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -338,35 +312,30 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp">
 
-                <TextView
-                    android:id="@+id/search_text_sdb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="SDB" />
-
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/sdbmin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/search_text_sdb"
                     android:layout_centerHorizontal="true"
                     android:ems="2"
                     android:inputType="textPersonName"
+                    app:boxStrokeColor="@android:color/black"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_image="@drawable/ic_map_black_24dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
-                        android:layout_width="40dp"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:hint="SDB"
                         android:inputType="number"
                         android:maxLength="10"
                         android:text="" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -385,6 +354,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_text_proximité"
+                android:layout_marginLeft="20dp"
+
                 android:layout_marginRight="30dp"
                 android:text="ecoles"
                 android:textColor="#bedac3"
@@ -425,7 +396,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_check_ecole"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
+
                 android:layout_marginBottom="20dp"
                 android:text="Parc"
                 android:textColor="#bedac3"
@@ -453,78 +426,43 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_check_bus"
                 android:layout_marginBottom="20dp"
-                android:text="nombre de photos : " />
+                android:text="nombre de photos Minimum : " />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/nombrephoto0"
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerphotonbr"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_below="@+id/textPhotos"
-                android:layout_marginBottom="20dp"
-                android:text="0"
-                android:textColor="#bedac3"
-                android:theme="@style/Theme.MaterialComponents.DayNight"
-                app:chipBackgroundColor="@color/colorPrimary"
-                app:chipCornerRadius="24dp" />
+                android:layout_marginHorizontal="150dp"
+                android:background="@color/colorPrimary"
+                android:entries="@array/Spinner_photos">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/nombrephoto4"
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textPhotos"
-                android:layout_marginBottom="20dp"
-                android:layout_toRightOf="@+id/nombrephoto3"
-                android:text="3"
-                android:textColor="#bedac3"
-                android:theme="@style/Theme.MaterialComponents.DayNight"
-                app:chipBackgroundColor="@color/colorPrimary"
-                app:chipCornerRadius="24dp" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/nombrephoto2"
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textPhotos"
-                android:layout_marginBottom="20dp"
-                android:layout_toRightOf="@+id/nombrephoto0"
-                android:text="1"
-                android:textColor="#bedac3"
-                android:theme="@style/Theme.MaterialComponents.DayNight"
-                app:chipBackgroundColor="@color/colorPrimary"
-                app:chipCornerRadius="24dp" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/nombrephoto3"
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textPhotos"
-                android:layout_marginBottom="20dp"
-                android:layout_toRightOf="@+id/nombrephoto2"
-                android:text="2"
-                android:textColor="#bedac3"
-                android:theme="@style/Theme.MaterialComponents.DayNight"
-                app:chipBackgroundColor="@color/colorPrimary"
-                app:chipCornerRadius="24dp" />
+            </Spinner>
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_RecyclerSearch"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:layout_below="@+id/nombrephoto2"
+                android:layout_below="@+id/spinnerphotonbr"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@android:color/darker_gray" />
+
+            <Button
+                android:id="@+id/search_btn_Reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/search_RecyclerSearch"
+
+                android:text="Reset" />
 
             <Button
                 android:id="@+id/search_btn_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_RecyclerSearch"
+                android:layout_alignParentRight="true"
                 android:text="Ok" />
 
         </RelativeLayout>

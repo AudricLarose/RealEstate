@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vous saisir votre description"/>
+
     <EditText
         android:id="@+id/inputDescripptionEdittext"
         android:layout_width="wrap_content"

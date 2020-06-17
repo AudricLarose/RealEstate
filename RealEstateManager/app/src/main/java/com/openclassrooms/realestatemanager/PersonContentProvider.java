@@ -40,11 +40,11 @@ public class PersonContentProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs,
                         @Nullable String sortOrder) {
         Log.d(TAG, "query");
-        Cursor cursor;
-        cursor = (Cursor) estateDao.selectAllEstate();
+//
         if (getContext() != null) {
             long userId = ContentUris.parseId(uri);
-            estateDao = DataBaseSQL.getInstance(getContext()).estateDao();
+            Cursor cursor;
+            cursor = (Cursor) DataBaseSQL.getInstance(getContext()).estateDao().getItemsWithCursor(userId);
             cursor.setNotificationUri(getContext().getContentResolver(), uri);
             return cursor;
         }

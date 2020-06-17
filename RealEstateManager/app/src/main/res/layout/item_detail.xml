@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wallpaperdetails"
-    tools:context=".ActivityDetails">
+    android:layout_height="match_parent">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,7 +18,6 @@
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white" />
-
 
 
     <ScrollView
@@ -39,8 +36,7 @@
                 android:layout_height="600dp"
                 android:layout_marginHorizontal="20dp"
                 android:alpha="0.7"
-                android:background="@drawable/round_details">
-            </RelativeLayout>
+                android:background="@drawable/round_details"></RelativeLayout>
 
             <TextView
                 android:id="@+id/descirptionDetails"
@@ -224,10 +220,9 @@
                     android:id="@+id/RelativeNearbyDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="100dp"
                     android:layout_below="@+id/RelativeBathroomDetails"
-                    >
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="100dp">
 
                     <TextView
                         android:id="@+id/NearbyDetails"
@@ -253,42 +248,42 @@
                 android:id="@+id/Relativedetails4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_below="@+id/Relativedetails3">
 
                 <RelativeLayout
-                android:id="@+id/RelativeRoomsDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:id="@+id/RoomsDetails"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:text="Bedrooms"
-                    android:textColor="@android:color/white"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/RoomschiffresDetails"
+                    android:id="@+id/RelativeRoomsDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/RoomsDetails"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="20dp">
 
-                    android:text="chiffres"
-                    android:textColor="@android:color/white" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/RoomsDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bedrooms"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/RoomschiffresDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/RoomsDetails"
+
+                        android:text="chiffres"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/RelativeSelledDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="100dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_below="@+id/RelativeRoomsDetails"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginBottom="20dp"
 
                     >
 
@@ -304,10 +299,40 @@
                         android:id="@+id/dateSelledDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="chiffres"
                         android:layout_below="@+id/selledDetails"
+                        android:text="chiffres"
                         android:textColor="@android:color/white" />
+
+
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeAgent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/RelativeSelledDetails"
+                    android:layout_marginLeft="50dp">
+
+                    <TextView
+
+                        android:id="@+id/agentDetailsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nom Agent"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/agentDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/agentDetailsText"
+                        android:text="Agent"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -360,7 +385,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentRight="true"
-
                     android:layout_marginRight="50dp" />
             </RelativeLayout>
 

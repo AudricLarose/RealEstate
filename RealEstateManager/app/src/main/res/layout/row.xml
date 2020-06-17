@@ -7,12 +7,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@drawable/fond"
         android:layout_marginBottom="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:alpha="0.9"
-            android:background="@drawable/round_for_row">
+            android:alpha="0.9">
 
         </RelativeLayout>
         <ImageView
@@ -20,7 +21,6 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_margin="12.5dp"
-            android:background="@drawable/round_for_row"
             />
         <TextView
             android:id="@+id/selledText"
@@ -58,7 +58,7 @@
                 android:layout_below="@id/TextTypeRow"
                 android:layout_marginBottom="10dp"
                 android:text="Ville"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 

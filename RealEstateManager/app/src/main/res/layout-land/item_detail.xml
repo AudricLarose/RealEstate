@@ -273,9 +273,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/RoomsDetails"
-
                         android:text="chiffres"
                         android:textColor="@android:color/white" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeAgent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/RelativeRoomsDetails"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="50dp">
+
+                    <TextView
+
+                        android:id="@+id/agentDetailsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nom Agent"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/agentDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/agentDetailsText"
+                        android:text="Agent"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
                 </RelativeLayout>
             </RelativeLayout>
 

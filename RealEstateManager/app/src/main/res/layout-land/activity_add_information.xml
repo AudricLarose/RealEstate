@@ -8,8 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/wallpaperaddinformation1">
+        android:layout_height="match_parent">
 
 
         <RelativeLayout
@@ -25,25 +24,23 @@
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
-                android:background="#BEDAC3"
                 android:entries="@array/Spinner_items"
                 android:outlineAmbientShadowColor="#bedac3" />
 
-            <com.github.florent37.materialtextfield.MaterialTextField
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_adresse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/type_bien"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round"
                 android:textAlignment="center"
                 app:mtf_backgroundColor="#bedac3"
                 app:mtf_cardCollapsedHeight="4dp"
                 app:mtf_image="@drawable/ic_map_black_24dp"
                 app:mtf_labelColor="#bedac3">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Adresse"
@@ -51,7 +48,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
 
-            </com.github.florent37.materialtextfield.MaterialTextField>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <RelativeLayout
                 android:id="@+id/RelativePostal"
@@ -61,15 +58,14 @@
                 android:layout_marginLeft="50dp">
 
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_codepostal"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Postale"
@@ -77,7 +73,7 @@
                         android:textColor="#bedac3"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -99,23 +95,25 @@
 
                     android:text="Ville" />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_ville"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/round"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Ville"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -215,19 +213,18 @@
                     android:text="Prix" />
 
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_prix"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="30dp"
-                    android:background="@drawable/round"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Prix"
@@ -235,18 +232,17 @@
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/RelativeSurface"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/RelativeMaarket"
+                android:layout_below="@+id/RelativeVille"
                 android:layout_toRightOf="@+id/RelativeChambre"
                 android:layout_marginLeft="50dp"
-
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30sp"
                 android:layout_marginRight="50dp">
 
                 <TextView
@@ -257,28 +253,24 @@
 
                     android:text="Surface" />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_surface"
                     android:layout_width="match_parent"
 
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/round"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
-
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Surface"
-
                         android:inputType="phone"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -298,7 +290,7 @@
 
                     />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_piece"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -306,12 +298,11 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="0dp"
-                    android:background="@drawable/round"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Piece"
@@ -319,7 +310,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -342,16 +333,15 @@
 
                     />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_chambre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/round"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Chambre"
@@ -359,7 +349,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
 
@@ -370,7 +360,7 @@
                 android:layout_below="@+id/RelativeVille"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
-                android:layout_toRightOf="@+id/RelativeSurface">
+                android:layout_toRightOf="@+id/RelativeMaarket">
 
                 <TextView
                     android:id="@+id/text_sdb"
@@ -381,17 +371,15 @@
 
                     android:text="SDB" />
 
-                <com.github.florent37.materialtextfield.MaterialTextField
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_sdb"
                     android:layout_width="match_parent"
-
                     android:layout_height="match_parent"
-                    android:background="@drawable/round"
                     app:mtf_backgroundColor="#bedac3"
                     app:mtf_cardCollapsedHeight="4dp"
                     app:mtf_labelColor="#bedac3">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Sdb"
@@ -399,7 +387,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
 
-                </com.github.florent37.materialtextfield.MaterialTextField>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
@@ -422,7 +410,6 @@
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
-                android:background="#bedac3"
                 android:entries="@array/Spinner_items2"
                 android:textColor="#bedac3" />
 
@@ -435,27 +422,26 @@
                 android:text="Description"
                 android:textColor="#bedac3" />
 
-            <com.github.florent37.materialtextfield.MaterialTextField
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_descript"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_description"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round"
                 app:mtf_backgroundColor="#bedac3"
                 app:mtf_cardCollapsedHeight="4dp"
                 app:mtf_image="@drawable/ic_map_black_24dp"
                 app:mtf_labelColor="#bedac3">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Description"
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
 
-            </com.github.florent37.materialtextfield.MaterialTextField>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
