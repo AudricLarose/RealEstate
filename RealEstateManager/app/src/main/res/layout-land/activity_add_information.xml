@@ -22,8 +22,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"
+
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
+                android:background="@color/colorPrimary"
                 android:entries="@array/Spinner_items"
                 android:outlineAmbientShadowColor="#bedac3" />
 
@@ -81,11 +83,11 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_adresse"
-                android:layout_toRightOf="@+id/RelativePostal"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="51dp"
 
-                android:layout_marginRight="51dp">
+                android:layout_toRightOf="@+id/RelativePostal">
 
                 <TextView
                     android:id="@+id/text_ville"
@@ -201,8 +203,8 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_adresse"
-                android:layout_toRightOf="@+id/RelativeMaarket"
-                android:layout_marginLeft="50dp">
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/RelativeMaarket">
 
                 <TextView
                     android:id="@+id/text_prix"
@@ -240,10 +242,10 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeVille"
-                android:layout_toRightOf="@+id/RelativeChambre"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="30sp"
-                android:layout_marginRight="50dp">
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@+id/RelativeChambre">
 
                 <TextView
                     android:id="@+id/text_surface"
@@ -358,8 +360,8 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeVille"
-                android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_toRightOf="@+id/RelativeMaarket">
 
                 <TextView
@@ -409,7 +411,9 @@
                 android:layout_below="@+id/text_nom_agent"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="20dp"
+
                 android:layout_marginBottom="50dp"
+                android:background="@color/colorPrimary"
                 android:entries="@array/Spinner_items2"
                 android:textColor="#bedac3" />
 
@@ -531,8 +535,8 @@
                 android:layout_below="@id/relativeCBox"
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/button"
-android:textColor="@android:color/white"
-                android:text="Local photo" />
+                android:text="Local photo"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btn_local_photo"
@@ -541,11 +545,11 @@ android:textColor="@android:color/white"
                 android:layout_below="@id/relativeCBox"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
-                android:textColor="@android:color/white"
-
                 android:background="@drawable/button"
 
-                android:text="Take a photo" />
+                android:text="Take a photo"
+
+                android:textColor="@android:color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Recyclerviewphotos"
@@ -563,9 +567,9 @@ android:textColor="@android:color/white"
                 android:layout_below="@id/Recyclerviewphotos"
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/button"
+                android:text="Cancel"
                 android:textColor="@android:color/white"
-android:textSize="15dp"
-                android:text="Cancel" />
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/btn_Modifier"
@@ -593,11 +597,11 @@ android:textSize="15dp"
         </RelativeLayout>
 
     </ScrollView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
-        android:background="@drawable/round"
-        android:alpha="0.1">
-    </RelativeLayout>
+        android:alpha="0.1"
+        android:background="@drawable/round"></RelativeLayout>
 </RelativeLayout>

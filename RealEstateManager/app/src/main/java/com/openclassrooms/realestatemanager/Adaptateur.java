@@ -38,7 +38,8 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
             if (mParentActivity != null) {
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
+//                    arguments.putSerializable("RealEstate", estate);
+                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(estate.getId()));
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -86,7 +87,7 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
         if (Boolean.valueOf(estate.getInEuro())) {
             holder.prix.setText(Utils.getEuroFormat(Integer.parseInt(estate.getPrix())));
         } else {
-//            holder.prix.setText(Utils.getDollarFormat(Integer.parseInt(estate.getPrix())));
+            holder.prix.setText(Utils.getDollarFormat(Integer.parseInt(estate.getPrix())));
 
         }
         holder.ville.setText(estate.getTown());

@@ -15,27 +15,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerviewEstate"
-        android:layout_width="200dp"
+        android:layout_width="400dp"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
         app:behavior_hideable="false"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
-
-    <ImageButton
-        android:id="@+id/buttonadd"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/ic_add_circle_black_70dp" />
-
-
 
     <FrameLayout
         android:id="@+id/item_detail_container"

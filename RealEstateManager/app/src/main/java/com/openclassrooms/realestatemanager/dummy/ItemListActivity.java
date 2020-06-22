@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,7 +18,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.openclassrooms.realestatemanager.Adaptateur;
 import com.openclassrooms.realestatemanager.AddInformationActivity;
 import com.openclassrooms.realestatemanager.Api.DI;
@@ -48,10 +52,30 @@ public class ItemListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ExtendedServiceEstate serviceEstate = DI.getService();
     private List<RealEstate> listRealEstate = serviceEstate.getRealEstateList();
+    private List<RealEstate> listTemp = serviceEstate.getTempList();
     private Adaptateur adapter;
     private RecyclerView.LayoutManager layoutManager;
     private boolean amIInEuro = true;
     private EstateViewModel estateViewModel;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private static void buttonInternetInfo(Context context) {
+        AlertDialog alertDialog = buttonInternetInfoDialog(context);
+        alertDialog.show();
+    }
+
+    private static AlertDialog buttonInternetInfoDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Vous devez activer votre connexion internet pour profiter de l'application." +
+                " Cependant vos informations sont sauvegarder sur votre téléphone et seront envoyées" +
+                "lorsque vous aurez de nouveau une connection").setTitle("Alert Internet").setPositiveButton("J'ai bien activé ma connexion", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Utils.InternetOnVerify(context);
+            }
+        });
+        return builder.create();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +86,64 @@ public class ItemListActivity extends AppCompatActivity {
         setTitle("Bienvenue !");
         detailsIfTablet();
         saveDataInSQLITE();
+        takeDataInBDDIfInternetIsHere();
         deployementButtonAdd();
         deployementButtonInternet();
+        onSwipeToRefresh();
         Utils.isInternetAvailable(this);
         Utils.internetIsOn(this);
 //        Utils.GPSOnVerify(this);
-
-
+        DeploytempHandler();
     }
 
+    private void DeploytempHandler() {
+        if (Utils.isInternetAvailable(this)) {
+            if (listTemp.size() > 0) {
+                for (int i = 0; i < listTemp.size(); i++) {
+                    Utils.sendItToMyBDDatRealEstate(listTemp.get(i));
+                }
+                Toast.makeText(this, "Send !", Toast.LENGTH_SHORT).show();
+                listTemp.clear();
+            }
+        } else {
+//            Toast.makeText(this, "Vous n'avez pas internet nous ne pouvons envoyer ce fichier a la BDD", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void onSwipeToRefresh() {
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                DeploytempHandler();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void takeDataInBDDIfInternetIsHere() {
+            Utils.saveDataInBDD(new Utils.CallBackInterfaceForBDD() {
+                @Override
+                public void onFinish(List<RealEstate> realEstateList, FirebaseFirestoreException e) {
+                    estateViewModel.deleteAlldata();
+                    for (int i = 0; i < realEstateList.size(); i++) {
+                        estateViewModel.InsertThisData(realEstateList.get(i));
+                    }
+                    Utils.downLoadImages(realEstateList.get(0), ItemListActivity.this, new Utils.DownloadController() {
+                        @Override
+                        public void onfInish(Uri uri) {
+                            String checker= String.valueOf(uri);
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onFail() {
+                    Toast.makeText(ItemListActivity.this, "Aucune Données dans la Base De Données", Toast.LENGTH_SHORT).show();
+                }
+            });
+    }
 
     private void deployRecyclerView() {
         adapter = new Adaptateur(listRealEstate, mTwoPane, this);
@@ -105,40 +178,22 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void deployementButtonInternet() {
-        final ImageButton internetButton = initiateButtonInternet();
-        activateButtonInternet(internetButton);
-    }
-
-    private static void buttonInternetInfo(Context context) {
-        AlertDialog alertDialog = buttonInternetInfoDialog(context);
-        alertDialog.show();
-    }
-
-    private static AlertDialog buttonInternetInfoDialog(final Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Vous devez activer votre connexion internet pour profiter de l'application." +
-                " Cependant vos informations sont sauvegarder sur votre téléphone et seront envoyées" +
-                "lorsque vous aurez de nouveau une connection").setTitle("Alert Internet").setPositiveButton("J'ai bien activé ma connexion", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Utils.InternetOnVerify(context);
-            }
-        });
-        return builder.create();
+//        final ImageButton internetButton = initiateButtonInternet();
+//        activateButtonInternet(internetButton);
     }
 
     private void activateButtonInternet(ImageButton internetButton) {
-      if (Utils.InternetOnVerify(this)){
-          internetButton.setVisibility(View.GONE);
-      } else {
-          internetButton.setVisibility(View.VISIBLE);
-          internetButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  buttonInternetInfo(ItemListActivity.this);
-              }
-          });
-      }
+        if (Utils.InternetOnVerify(this)) {
+            internetButton.setVisibility(View.GONE);
+        } else {
+            internetButton.setVisibility(View.VISIBLE);
+            internetButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buttonInternetInfo(ItemListActivity.this);
+                }
+            });
+        }
     }
 
 
@@ -146,9 +201,9 @@ public class ItemListActivity extends AppCompatActivity {
         return findViewById(R.id.buttonadd);
     }
 
-    private ImageButton initiateButtonInternet() {
-        return findViewById(R.id.noInternet);
-    }
+//    private ImageButton initiateButtonInternet() {
+////        return findViewById(R.id.noInternet);
+//    }
 
     private void activateButtonAdd(ImageButton addButton) {
         addButton.setOnClickListener(new View.OnClickListener() {

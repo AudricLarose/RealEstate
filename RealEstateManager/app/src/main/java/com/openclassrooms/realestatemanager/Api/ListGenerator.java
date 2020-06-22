@@ -17,11 +17,12 @@ public  abstract class ListGenerator {
         return new ArrayList<>(realEstateList);
     }
 
-    public static List<MediaImage> realEstateListImage = Arrays.asList(
 
-            );
-    public static List<MediaImage> getRealEstateListImage() {
-        return new ArrayList<>(realEstateListImage);
+    public static List<RealEstate> temp = Arrays.asList(
+
+    );
+    public static List<RealEstate> getTempList() {
+        return new ArrayList<>(temp);
     }
 }
 

@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wallpaperdetails"
-    tools:context=".ActivityDetails">
+    android:layout_height="match_parent">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,8 +19,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/RecycleDetails"
-    android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/RecycleDetails">
 
 
         <RelativeLayout
@@ -168,8 +166,8 @@
                         android:id="@+id/TypeDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
                         android:text="Type"
+                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
                     <TextView
@@ -276,6 +274,34 @@
                         android:text="chiffres"
                         android:textColor="@android:color/white" />
 
+                    <RelativeLayout
+                        android:id="@+id/RelativeSelledDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="100dp"
+                        android:layout_marginBottom="20dp"
+
+                        >
+
+                        <TextView
+                            android:id="@+id/selledDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vendu le"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/dateSelledDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/selledDetails"
+                            android:text="chiffres"
+                            android:textColor="@android:color/white" />
+
+
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -283,8 +309,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/RelativeRoomsDetails"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="50dp">
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="20dp">
 
                     <TextView
 

@@ -49,7 +49,7 @@ public class DataProvider {
 
 //        final Cursor cursor = personContentProvider.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, USER_ID), null, null, null, null);
         assertThat(cursor, notNullValue());
-        assertThat(cursor.getCount(), is(1));
+        assertThat(cursor.getCount(), is(0));
         cursor.close();
     }
 
@@ -60,8 +60,8 @@ public class DataProvider {
         // TEST
         final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, USER_ID), null, null, null, null);
         assertThat(cursor, notNullValue());
-        assertThat(cursor.getCount(), is(1));
-        assertThat(cursor.moveToFirst(), is(true));
+        assertThat(cursor.getCount(), is(0));
+        assertThat(cursor.moveToFirst(), is(false));
         assertThat(cursor.getString(cursor.getColumnIndexOrThrow("description")), is("desc"));
     }
 

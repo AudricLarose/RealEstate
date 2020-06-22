@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,12 +10,30 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.openclassrooms.realestatemanager.Api.DI;
+import com.openclassrooms.realestatemanager.Api.ExtendedServiceEstate;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
 import java.io.IOException;
@@ -25,8 +44,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -215,6 +238,158 @@ public class Utils {
         }
     }
 
+    public static void saveDataInBDD(final CallBackInterfaceForBDD callBackInterfaceForBDD) {
+        ExtendedServiceEstate servicePlace = DI.getService();
+        final List<RealEstate> listeRealEstate = servicePlace.getRealEstateList();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("realestates")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        List<RealEstate> resultsBDD = null;
+                        if (queryDocumentSnapshots != null) {
+                            resultsBDD = queryDocumentSnapshots.toObjects(RealEstate.class);
+                            callBackInterfaceForBDD.onFinish(resultsBDD, e);
+
+                        } else {
+                            callBackInterfaceForBDD.onFail();
+
+                        }
+                    }
+                });
+    }
+
+    public static void getNEarbyList(final RealEstate resultsBDD) {
+        ExtendedServiceEstate servicePlace = DI.getService();
+        final List<RealEstate> listeRealEstate = servicePlace.getRealEstateList();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("estates")
+                .document(String.valueOf(resultsBDD.hashCode()))
+                .collection("Nearby").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        resultsBDD.getNearby().add(document.getString("nom"));
+                        resultsBDD.getNearby();
+                    }
+                }
+            }
+        });
+    }
+
+    public static void sendItToMyBDDatRealEstate(RealEstate estate) {
+        Map note = new HashMap();
+        note.put("id", estate.getId());
+        note.put("type", estate.getType());
+        note.put("nomAgent", estate.getNomAgent());
+        note.put("adresse", estate.getAdresse());
+        note.put("ischecked", estate.getIschecked());
+        note.put("postal", estate.getPostal());
+        note.put("town", estate.getTown());
+        note.put("description", estate.getDescription());
+        note.put("chambre", estate.getChambre());
+        note.put("piece", estate.getPiece());
+        note.put("sdb", estate.getSdb());
+        note.put("surface", estate.getSurface());
+        note.put("market", estate.getMarket());
+        note.put("prix", estate.getPrix());
+        note.put("lattitude", estate.getLattitude());
+        note.put("longitude", estate.getLongitude());
+        note.put("url", estate.getUrl());
+        note.put("inEuro", estate.getInEuro());
+        note.put("selled", estate.getSelled());
+        note.put("nearby", estate.getNearby());
+        note.put("photosReal", estate.getPhotosReal());
+        note.put("descriptionImage", estate.getDescriptionImage());
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("realestates").document(String.valueOf(estate.hashCode())).set(note);
+//        getNearbyList(estate, firebaseFirestore);
+//        getPhotosRealList(estate, firebaseFirestore);
+//        for (int i = 0; i < estate.getPhotosReal().size(); i++) {
+//            Map<String, Object> note4 = new HashMap<>();
+//            note4.put("nom", estate.getDescriptionImage().get(i));
+//            firebaseFirestore.collection("estates").document(String.valueOf(estate.hashCode())).collection("descriptionImage").add(note4);
+//        }
+//
+//    }
+
+//    private static void getPhotosRealList(RealEstate estate, FirebaseFirestore firebaseFirestore) {
+//        for (int i = 0; i < estate.getPhotosReal().size(); i++) {
+//            Map<String, Object> note3 = new HashMap<>();
+//            note3.put("nom", estate.getPhotosReal().get(i));
+//            firebaseFirestore.collection("estates").document(String.valueOf(estate.hashCode())).collection("photosReal").add(note3);
+//        }
+//    }
+//
+//    private static void getNearbyList(RealEstate estate, FirebaseFirestore firebaseFirestore) {
+//        for (int i = 0; i < estate.getNearby().size(); i++) {
+//            Map<String, Object> note2 = new HashMap<>();
+//            note2.put("nom", estate.getNearby().get(i));
+//            firebaseFirestore.collection("estates").document(String.valueOf(estate.hashCode())).collection("nearby").add(note2);
+//        }
+    }
+
+    public static String[] uploadImage(RealEstate estate, final Context context) {
+        final String[] url = {""};
+        final StorageReference mStorageRef = FirebaseStorage.getInstance().getReference(String.valueOf(estate.hashCode()));
+        UploadTask uploadTask = mStorageRef.putFile(Uri.parse(estate.getPhotosReal().get(0)));
+        Task<Uri> task = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(context, "Le fichier n'est pas envoyé car la connexion est mauvaise", Toast.LENGTH_SHORT).show();
+                }
+                return mStorageRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    url[0] = task.getResult().toString();
+                }
+            }
+        });
+        return url;
+    }
+
+    public static void downLoadImages(final RealEstate estate, final Context context, final DownloadController downloadController) {
+        final StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+        final StorageReference ref = mStorageRef.child("206614279");
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String url = uri.toString();
+                downloadFile(context, String.valueOf(estate.hashCode()), ".jpeg", DIRECTORY_DOWNLOADS, url);
+                Toast.makeText(context, "Succes ! ", Toast.LENGTH_SHORT).show();
+                downloadController.onfInish(uri);
+            }
+        });
+
+    }
+
+    private static void downloadFile(Context context, String fileName, String fileExtension, String desintationDriectory, String url) {
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, desintationDriectory, fileName + fileExtension);
+        downloadManager.enqueue(request);
+
+    }
+
+    public interface DownloadController {
+        void onfInish(Uri uri);
+    }
+
+    public interface CallBackInterfaceForBDD {
+        void onFinish(List<RealEstate> realEstateList, FirebaseFirestoreException e);
+
+        void onFail();
+    }
+
+
     public interface GPSCallBAck {
         void onRetrieve();
     }
@@ -226,5 +401,5 @@ public class Utils {
 
         void onCrash();
     }
-
 }
+

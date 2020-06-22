@@ -47,7 +47,6 @@ public class ItemDetailFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
     private ExtendedServiceEstate serviceEstate = DI.getService();
-    private List<MediaImage> listRealEstateImage = serviceEstate.getRealEstateImageList();
     private List<RealEstate> listRealEstate = serviceEstate.getRealEstateList();
     private boolean amIInEuro = true;
     private LatLng latLngRealestate;
@@ -63,7 +62,13 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
+            for (int i = 0; i <listRealEstate.size() ; i++) {
+                if (String.valueOf(listRealEstate.get(i).getId()).contains(getArguments().getString(ARG_ITEM_ID))) {
+                    estateGrabbed = listRealEstate.get(i);
+                }
+            }
+
+        // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
 //            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -80,8 +85,6 @@ public class ItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
-
-        // Show the dummy content as text in a TextView.
         deployTextView(rootView);
         realStateIfExist(rootView);
         return rootView;
@@ -150,7 +153,9 @@ public class ItemDetailFragment extends Fragment {
         roomChiffre.setText(estateGrabbed.getPiece());
         typeCHiffre.setText(estateGrabbed.getType());
         bathroomchiffre.setText(estateGrabbed.getSdb());
-        nearbyChiffre.setText(estateGrabbed.getNearby().toString());
+        if (estateGrabbed.getNearby()!=null) {
+            nearbyChiffre.setText(estateGrabbed.getNearby().toString());
+        }
         chamber.setText(estateGrabbed.getChambre());
         description.setText(estateGrabbed.getDescription());
         agent.setText(estateGrabbed.getNomAgent());
