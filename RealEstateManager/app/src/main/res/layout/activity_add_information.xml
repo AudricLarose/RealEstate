@@ -5,11 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:progress="@android:integer/config_longAnimTime"
+        android:progressBackgroundTint="@color/colorSecondary"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,7 +26,7 @@
             <Spinner
                 android:id="@+id/type_bien"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="20dp"
@@ -147,9 +153,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="@font/bebas"
-
                     android:text=" "
-                    android:textColor="#bedac3" />
+                    android:textColor="@color/design_default_color_on_secondary" />
 
                 <Button
                     android:id="@+id/btn_date"
@@ -441,7 +446,7 @@
             <Spinner
                 android:id="@+id/nom_agent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/text_nom_agent"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="20dp"
@@ -518,7 +523,7 @@
                     android:fontFamily="@font/bebas"
                     android:padding="20dp"
                     android:text="ecoles"
-                    android:textColor="#bedac3"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -531,8 +536,7 @@
                     android:layout_toRightOf="@+id/check_ecole"
                     android:fontFamily="@font/bebas"
                     android:text="magasins"
-
-                    android:textColor="#bedac3"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -546,8 +550,7 @@
                     android:layout_toRightOf="@+id/check_parc"
                     android:fontFamily="@font/bebas"
                     android:text="Station"
-                    android:textColor="#bedac3"
-
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -555,15 +558,13 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/check_parc"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/check_ecole"
                     android:layout_marginHorizontal="40dp"
                     android:fontFamily="@font/bebas"
                     android:text="Parc"
-
-                    android:textColor="#bedac3"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -574,11 +575,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/check_parc"
-                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginLeft="50dp"
                     android:fontFamily="@font/bebas"
-
-                    android:text="station Bus/Metro"
-                    android:textColor="#bedac3"
+                    android:text="Bus"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />

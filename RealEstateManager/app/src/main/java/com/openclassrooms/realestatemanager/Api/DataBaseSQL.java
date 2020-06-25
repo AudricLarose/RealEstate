@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.openclassrooms.realestatemanager.EstateDao;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
-@Database(entities = {RealEstate.class}, version = 11)
+@Database(entities = {RealEstate.class}, version = 14)
 public abstract class DataBaseSQL extends RoomDatabase {
     private static DataBaseSQL instance;
     private static RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {

@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager;
 
-import android.app.Activity;
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,14 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.openclassrooms.realestatemanager.dummy.DummyContent;
 import com.openclassrooms.realestatemanager.dummy.ItemDetailActivity;
-import com.openclassrooms.realestatemanager.dummy.ItemDetailFragment;
-import com.openclassrooms.realestatemanager.dummy.ItemListActivity;
+import com.openclassrooms.realestatemanager.dummy.DetailFragment;
+import com.openclassrooms.realestatemanager.dummy.MainActivity;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 import com.squareup.picasso.Picasso;
 
@@ -28,44 +27,28 @@ import java.util.List;
 public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
     public List<RealEstate> liste;
     public Boolean mTwoPane;
-    public ItemListActivity mParentActivity;
+    public MainActivity mParentActivity;
     public RealEstate estate;
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-            if (mParentActivity != null) {
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-//                    arguments.putSerializable("RealEstate", estate);
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(estate.getId()));
-                    ItemDetailFragment fragment = new ItemDetailFragment();
-                    fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
-                            .commit();
-                } else {
-                    goToItemDetailsActivity(view);
-                }
-            }else {
-                goToItemDetailsActivity(view);
-            }
+
         }
     };
 
-    private void goToItemDetailsActivity(View view) {
+    private void goToItemDetailsActivity(View view, RealEstate estate1) {
         Intent intent = new Intent(view.getContext(), ItemDetailActivity.class);
-        //                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
+        //                    intent.putExtra(DetailFragment.ARG_ITEM_ID, item.id);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("RealEstate", estate);
+        bundle.putSerializable("RealEstate", estate1);
         intent.putExtras(bundle);
         view.getContext().startActivity(intent);
     }
 
 
-    public Adaptateur(List<RealEstate> liste, Boolean mTwoPane, ItemListActivity mParentActivity) {
+    public Adaptateur(List<RealEstate> liste, Boolean mTwoPane, MainActivity mParentActivity) {
         this.liste = liste;
         this.mTwoPane = mTwoPane;
         this.mParentActivity = mParentActivity;
@@ -81,7 +64,7 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
 
 
     @Override
-    public void onBindViewHolder(@NonNull LeHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final LeHolder holder, final int position) {
         estate = liste.get(position);
         holder.type.setText(estate.getType());
         if (Boolean.valueOf(estate.getInEuro())) {
@@ -92,9 +75,52 @@ public class Adaptateur extends RecyclerView.Adapter<Adaptateur.LeHolder> {
         }
         holder.ville.setText(estate.getTown());
         if (estate.getPhotosReal()!=null && estate.getPhotosReal().size()>0) {
-            Picasso.get().load(Uri.parse(estate.getPhotosReal().get(0))).into(holder.imageRealestate);
+            if (estate.getUrlFireBase()!=null && estate.getUrlFireBase().size()>0){
+                Picasso.get().load(estate.getUrlFireBase().get(0)).into(holder.imageRealestate);
+            } else {
+                Picasso.get().load(Uri.parse(estate.getPhotosReal().get(0))).into(holder.imageRealestate);
+            }
         }
-        holder.relativeLayout.setOnClickListener(mOnClickListener);
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                holder.relativeLayout.setBackgroundColor(R.color.colorAccent);
+                Toast.makeText(mParentActivity, ""+liste.get(position), Toast.LENGTH_SHORT).show();
+//                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                if (mParentActivity != null) {
+                    if (mTwoPane) {
+                        Bundle arguments = new Bundle();
+//                    arguments.putSerializable("RealEstate", estate);
+                        arguments.putSerializable("RealEstate", liste.get(position));
+                       int dfdf= liste.get(position).getId();
+                        arguments.putString(DetailFragment.ARG_ITEM_ID, String.valueOf(liste.get(position).getId()));
+                        DetailFragment fragment = new DetailFragment();
+                        fragment.setArguments(arguments);
+                        mParentActivity.getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.item_detail_container, fragment)
+                                .commit();
+                    } else {
+                        goToItemDetailsActivity(v,liste.get(position));
+                    }
+                }else {
+                    goToItemDetailsActivity(v,liste.get(position));
+                }
+            }
+        });
+        checkLiestener(holder);
+//        verifyIfitisTemp(holder);
+    }
+//
+//    @SuppressLint("ResourceAsColor")
+//    private void verifyIfitisTemp(LeHolder holder) {
+//        if (estate.getTemp()!=null && estate.getTemp().contains("true")) {
+//            holder.relativeLayout.setBackgroundColor(R.color.colorSecondary);
+//        }
+//
+//    }
+
+    private void checkLiestener(@NonNull LeHolder holder) {
         if (estate.getIschecked()!=null && estate.getSelled()!=null) {
             if (!Boolean.valueOf(estate.getIschecked()) && estate.getSelled().equals("date")) {
                 holder.selled.setText(" Disponible !");

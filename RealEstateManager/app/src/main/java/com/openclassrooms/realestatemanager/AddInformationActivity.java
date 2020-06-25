@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -82,6 +83,8 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     private EstateViewModel estateViewModel;
     private List<String> listPhotoRealistetate = new ArrayList<>();
     private List<String> descritpionImage = new ArrayList<>();
+    private boolean CameraActivate;
+    private ProgressBar progressBar;
 
     public static Uri getImageUri(Activity inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -102,15 +105,20 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         deploySpinner();
         iniatiateAndActivateSwitch();
         deployRecyclerView();
+        deployProgressBar();
         deployModificationAction();
         actionfleche();
     }
 
+    private void deployProgressBar() {
+        progressBar = findViewById(R.id.progress_bar);
+    }
+
     private void setTitleToAdapt() {
         if (verifyEstateExist()) {
-            setTitle("Modifier ");
+            setTitle(R.string.modify);
         } else {
-            setTitle("Ajouter ");
+            setTitle(R.string.ajouter);
         }
     }
 
@@ -291,6 +299,17 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
             @Override
             public void onClick(View v) {
                 RealEstate estateForModifier = modifyEstate();
+                Utils.upDateMyBDDPlease(modifyEstate());
+                try {
+                    Utils.uploadImage(modifyEstate(), AddInformationActivity.this, new Utils.CallBackImage() {
+                        @Override
+                        public void onFinish(List<String> s) {
+                            modifyEstate().setUrlFireBase(s);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 redirectToDetailsActivity(estateForModifier);
             }
         });
@@ -304,6 +323,7 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         estateNew.setId(estate.getId());
         estateViewModel = ViewModelProviders.of(this).get(EstateViewModel.class);
         estateViewModel.UpdateThisData(estateNew);
+
         return null;
     }
 
@@ -348,7 +368,6 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
                     getTimeIfDateIsEmpty(eMarket);
                     saveEntryEditText();
                     showGlobalResult();
-                    finish();
                 }
             }
         });
@@ -377,7 +396,7 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
                 isCheck = true;
             }
             if (isCheck) {
-                Toast.makeText(this, "Vous devez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.vous_devez , Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -400,8 +419,8 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         btnLocalPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, IMAGE_REQUEST);
+                CameraActivate = false;
+                askDescription();
             }
         });
     }
@@ -411,34 +430,51 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         btnCameraPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CameraActivate = true;
                 askDescription();
-
             }
         });
     }
 
     private void askDescription() {
-        AlertDialog alertDialog = eraseImageAlertDIalg();
+        AlertDialog alertDialog = DescriptionAlertDIalg();
         alertDialog.show();
     }
 
-    private AlertDialog eraseImageAlertDIalg() {
+    private AlertDialog DescriptionAlertDIalg() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View view = LayoutInflater.from(this).inflate(R.layout.input_description, null);
-        builder.setView(view).setTitle("Effacer Image").setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(R.string.define_ins ).setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditText editText = view.findViewById(R.id.inputDescripptionEdittext);
                 descritpionImage.add(editText.getText().toString());
-                goToGalleryPhoto();
+                knowWhere2Go();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-
         return builder.create();
+    }
+
+    private void knowWhere2Go() {
+        if (CameraActivate) {
+            goToGalleryPhoto();
+        } else {
+            goToCameraDisplay();
+        }
+    }
+
+    private void goToGalleryPhoto() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, REQUESTCODEGALLERY);
+    }
+
+    private void goToCameraDisplay() {
+        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePicture, IMAGE_REQUEST);
     }
 
     @Override
@@ -455,38 +491,78 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
         }
     }
 
+    private void showGlobalResult() {
+        RealEstate estate1 = generateEstateObject();
+        if (estate1 != null) {
+            knowIfTempOrNot(estate1);
+            final RealEstate finalEstate = estate1;
+            sendToFireStock(estate1, new SendCallBack() {
+                @Override
+                public void onFinish(RealEstate estateFireBase) {
+                    saveToRoom(estateFireBase);
+                    finish();
+                }
 
-    private void goToGalleryPhoto() {
-        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto, REQUESTCODEGALLERY);
+                @Override
+                public void onFail() {
+                    saveToRoom(finalEstate);
+                    finish();
+                }
+            });
+
+        }
     }
 
-    private void showGlobalResult() {
-        RealEstate estate = new RealEstate(String.valueOf(true), String.valueOf(isItChecked), globalResultEstate.get("TypeEstate"), globalResultEstate.get("nameEstate"), resultsValidatedByUser, globalResultEstate.get("Adresse"),
+    private void saveToRoom(RealEstate estate1) {
+        estateViewModel = new EstateViewModel(getApplication());
+        estateViewModel.InsertThisData(estate1);
+    }
+
+    private RealEstate generateEstateObject() {
+        estate = new RealEstate(String.valueOf(true), String.valueOf(isItChecked), globalResultEstate.get("TypeEstate"), globalResultEstate.get("nameEstate"), resultsValidatedByUser, globalResultEstate.get("Adresse"),
                 globalResultEstate.get("Chambre"), globalResultEstate.get("Description"), date, globalResultEstate.get("Postal"), globalResultEstate.get("Piece")
                 , globalResultEstate.get("Prix"), globalResultEstate.get("SDB"), globalResultEstate.get("Surface"), globalResultEstate.get("Ville"), globalResultEstate.get("dateSell"), lattitudeRealEState, longitudeRealEState, url, listPhotoRealistetate, descritpionImage);
-        estateViewModel = new EstateViewModel(getApplication());
-//        estateViewModel.InsertThisData(estate);
-        Utils.sendItToMyBDDatRealEstate(estate);
-        String[] url= Utils.uploadImage(estate,this);
-        Log.d(TAG, "showGlobalResult: "+ url[0]);
-        Utils.downLoadImages(estate, this, new Utils.DownloadController() {
-            @Override
-            public void onfInish(Uri uri) {
-                String check=String.valueOf(uri);
-            }
-        });
-        saveInTempIfNoInternet(estate);
 
-
+        return estate;
     }
 
-    private void saveInTempIfNoInternet(RealEstate estate) {
-        if (!Utils.isInternetAvailable(this)) {
-            Toast.makeText(this, "Vous n'etes pas connectés , ainsi vos données seront envoyées " +
-                    "a votre prochaine connexion a l'Internet", Toast.LENGTH_LONG).show();
-            tempList.add(estate);
+    private RealEstate sendToFireStock(final RealEstate estate1, final SendCallBack sendCallBack) {
+        try {
+            progressBar.setVisibility(View.VISIBLE);
+            List<String> url = Utils.uploadImage(estate1, this, new Utils.CallBackImage() {
+                @Override
+                public void onFinish(List<String> s) {
+                    estate1.setUrlFireBase(s);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    sendCallBack.onFinish(estate1);
+                }
+            });
+        } catch (Exception e) {
+            progressBar.setVisibility(View.INVISIBLE);
+            sendCallBack.onFail();
         }
+        return estate1;
+    }
+
+    private void knowIfTempOrNot(RealEstate estate) {
+        if (Utils.isInternetAvailable(this)) {
+            Utils.sendItToMyBDDatRealEstate(estate);
+            estate.setTemp("false");
+        } else {
+            estate=saveInTempIfNoInternet(estate);
+            saveToRoom(estate);
+            finish();
+        }
+    }
+
+    private RealEstate saveInTempIfNoInternet(RealEstate estate) {
+        if (!Utils.isInternetAvailable(this)) {
+            Toast.makeText(this, R.string.not_connecte , Toast.LENGTH_LONG).show();
+            tempList.add(estate);
+            progressBar.setVisibility(View.GONE);
+            estate.setTemp("true");
+        }
+        return estate;
     }
 
     private void deployModificationAction() {
@@ -534,11 +610,11 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
 
     private void spinnerCaseType() {
         ArrayList<String> listForPosition = new ArrayList<String>();
-        listForPosition.add("Appartement");
-        listForPosition.add("Maison");
-        listForPosition.add("Grenier");
-        listForPosition.add("Parking");
-        listForPosition.add("Villa");
+        listForPosition.add(getString(R.string.appartement) );
+        listForPosition.add(getString(R.string.House ));
+        listForPosition.add(getString(R.string.attic ));
+        listForPosition.add(getString(R.string.parking ));
+        listForPosition.add(getString(R.string.villa ));
         for (int i = 0; i < listForPosition.size(); i++) {
             if (estate.getType().equals(listForPosition.get(i))) {
                 spinnerChoicce.setSelection(i);
@@ -603,5 +679,11 @@ public class AddInformationActivity extends AppCompatActivity implements DatePic
     protected void onPause() {
         super.onPause();
         deployRecyclerView();
+    }
+
+    public interface SendCallBack {
+        void onFinish(RealEstate estateFireBase);
+
+        void onFail();
     }
 }

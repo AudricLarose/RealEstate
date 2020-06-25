@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -45,7 +44,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="Description"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -57,8 +56,8 @@
                 android:layout_marginLeft="50dp"
 
                 android:layout_marginBottom="20dp"
-                android:text="Description"
-                android:textColor="@android:color/white" />
+                android:text="@string/description"
+                android:textColor="@android:color/black" />
 
             <RelativeLayout
                 android:id="@+id/Relativedetails1"
@@ -73,13 +72,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp">
 
+                    <ImageView
+                        android:id="@+id/icone_surface"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_zoom_out_map_black_24dp" />
+
                     <TextView
                         android:id="@+id/surfaceDetails"
                         android:layout_width="wrap_content"
-
                         android:layout_height="wrap_content"
-                        android:text="Surface"
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_surface"
+                        android:text="@string/surface"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -88,8 +94,8 @@
                         android:layout_height="wrap_content"
 
                         android:layout_below="@+id/surfaceDetails"
-                        android:text="chiffres"
-                        android:textColor="@android:color/white" />
+                        android:text="@string/chiffres"
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -100,12 +106,20 @@
                     android:layout_marginRight="100dp"
                     android:layout_marginBottom="20dp">
 
+                    <ImageView
+                        android:id="@+id/icone_money"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_attach_money_black_24dp" />
+
                     <TextView
                         android:id="@+id/PriceDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_money"
                         android:text="Price"
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -113,9 +127,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/PriceDetails"
-                        android:text="chiffres"
+                        android:text="@string/chiffres"
 
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -133,12 +147,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp">
 
+                    <ImageView
+                        android:id="@+id/icone_room"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_home_black_24dp" />
+
                     <TextView
                         android:id="@+id/RoomDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rooms"
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_room"
+                        android:text="@string/rooms"
+                        android:textColor="@android:color/black"
 
 
                         android:textStyle="bold" />
@@ -150,7 +172,7 @@
                         android:layout_below="@+id/RoomDetails"
 
                         android:text="chiffres"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -162,12 +184,20 @@
                     android:layout_marginRight="100dp"
                     android:textStyle="bold">
 
+                    <ImageView
+                        android:id="@+id/icone_type"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_type" />
+
                     <TextView
                         android:id="@+id/TypeDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Type"
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_type"
+                        android:text="@string/type"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -176,8 +206,8 @@
                         android:layout_height="wrap_content"
 
                         android:layout_below="@+id/TypeDetails"
-                        android:text="chiffres"
-                        android:textColor="@android:color/white" />
+                        android:text="@string/chiffres"
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -195,13 +225,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp">
 
+                    <ImageView
+                        android:id="@+id/icone_sdb"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_bathroom" />
+
                     <TextView
                         android:id="@+id/BathroomDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SDB"
-
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_sdb"
+                        android:text="@string/sdb"
+                        android:textColor="@android:color/black"
 
                         android:textStyle="bold" />
 
@@ -211,8 +248,8 @@
 
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/BathroomDetails"
-                        android:text="chiffres"
-                        android:textColor="@android:color/white" />
+                        android:text="@string/chiffres"
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -222,12 +259,20 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="100dp">
 
+                    <ImageView
+                        android:id="@+id/icone_proximite"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_near_me_black_24dp" />
+
                     <TextView
                         android:id="@+id/NearbyDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Proximité"
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_proximite"
+                        android:text="@string/proximit"
+                        android:textColor="@android:color/black"
 
 
                         android:textStyle="bold" />
@@ -238,8 +283,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/NearbyDetails"
 
-                        android:text="chiffres"
-                        android:textColor="@android:color/white" />
+                        android:text="@string/chiffres"
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -256,13 +301,20 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginBottom="20dp">
 
+                    <ImageView
+                        android:id="@+id/icone_bedroom"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_airline_seat_individual_suite_black_24dp" />
+
                     <TextView
                         android:id="@+id/RoomsDetails"
                         android:layout_width="wrap_content"
-
                         android:layout_height="wrap_content"
-                        android:text="Bedrooms"
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_bedroom"
+                        android:text="@string/bedrooms"
+                        android:textColor="@android:color/black"
 
                         android:textStyle="bold" />
 
@@ -271,8 +323,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/RoomsDetails"
-                        android:text="chiffres"
-                        android:textColor="@android:color/white" />
+                        android:text="@string/chiffres"
+                        android:textColor="@android:color/black" />
 
                     <RelativeLayout
                         android:id="@+id/RelativeSelledDetails"
@@ -284,11 +336,19 @@
 
                         >
 
+                        <ImageView
+                            android:id="@+id/icone_vendu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_swap_horiz_pink_24dp" />
+
                         <TextView
                             android:id="@+id/selledDetails"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vendu le"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@+id/icone_vendu"
+                            android:text="@string/vendu_le"
                             android:textColor="@android:color/holo_red_dark"
                             android:textStyle="bold" />
 
@@ -297,8 +357,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/selledDetails"
-                            android:text="chiffres"
-                            android:textColor="@android:color/white" />
+                            android:text="@string/chiffres"
+                            android:textColor="@android:color/black" />
 
 
                     </RelativeLayout>
@@ -312,13 +372,20 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginBottom="20dp">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/icone_agent"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_person_black_24dp" />
 
+                    <TextView
                         android:id="@+id/agentDetailsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nom Agent"
-                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icone_agent"
+                        android:text="@string/nom_agent"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -326,8 +393,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/agentDetailsText"
-                        android:text="Agent"
-                        android:textColor="@android:color/white"
+                        android:text="@string/agent"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -340,14 +407,21 @@
                 android:layout_below="@+id/Relativedetails4"
                 android:layout_marginLeft="50dp">
 
+                <ImageView
+                    android:id="@+id/icone_location"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_location_on_black_24dp" />
+
                 <TextView
                     android:id="@+id/locationDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
-
-                    android:text="Location"
-                    android:textColor="@android:color/white"
+                    android:layout_toRightOf="@+id/icone_location"
+                    android:text="@string/location"
+                    android:textColor="@android:color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -357,17 +431,17 @@
                     android:layout_height="wrap_content"
 
                     android:layout_below="@+id/locationDetails"
-                    android:text="Adresse"
-                    android:textColor="@android:color/white" />
+                    android:text="@string/adresse"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/villeDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/adresseDetails"
-                    android:text="Ville"
+                    android:text="@string/ville"
 
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/paysDetails"
@@ -375,8 +449,8 @@
                     android:layout_height="wrap_content"
 
                     android:layout_below="@+id/villeDetails"
-                    android:text="Pays"
-                    android:textColor="@android:color/white" />
+                    android:text="@string/pays"
+                    android:textColor="@android:color/black" />
 
             </RelativeLayout>
 

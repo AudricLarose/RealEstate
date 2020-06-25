@@ -8,13 +8,13 @@
         android:id="@+id/text_demande_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vous saisir votre description"/>
+        android:text="@string/putdescription"/>
 
     <EditText
         android:id="@+id/inputDescripptionEdittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description a saisir"
+        android:text="@string/putdescription"
         android:textColor="@android:color/black"
         android:layout_below="@+id/text_demande_input"
         />

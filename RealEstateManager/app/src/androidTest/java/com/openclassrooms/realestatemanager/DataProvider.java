@@ -58,10 +58,10 @@ public class DataProvider {
         // BEFORE : Adding demo item
         final Uri userUri = mContentResolver.insert(PersonContentProvider.URI_ITEM, generateItem());
         // TEST
-        final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, USER_ID), null, null, null, null);
+        final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, 95), null, null, null, null);
         assertThat(cursor, notNullValue());
-        assertThat(cursor.getCount(), is(0));
-        assertThat(cursor.moveToFirst(), is(false));
+        assertThat(cursor.getCount(), is(1));
+        assertThat(cursor.moveToFirst(), is(true));
         assertThat(cursor.getString(cursor.getColumnIndexOrThrow("description")), is("desc"));
     }
 

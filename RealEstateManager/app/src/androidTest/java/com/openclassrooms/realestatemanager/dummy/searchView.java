@@ -31,7 +31,7 @@ import static org.hamcrest.Matchers.allOf;
 public class searchView {
 
     @Rule
-    public ActivityTestRule<ItemListActivity> mActivityTestRule = new ActivityTestRule<>(ItemListActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void searchView() {

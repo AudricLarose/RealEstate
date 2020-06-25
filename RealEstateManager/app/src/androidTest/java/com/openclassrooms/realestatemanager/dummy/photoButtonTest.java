@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.allOf;
 public class photoButtonTest {
 
     @Rule
-    public ActivityTestRule<ItemListActivity> mActivityTestRule = new ActivityTestRule<>(ItemListActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void itemListActivityTest12() {

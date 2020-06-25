@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ import com.openclassrooms.realestatemanager.SearchActivity;
 import com.openclassrooms.realestatemanager.Utils;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ItemListActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -58,6 +60,7 @@ public class ItemListActivity extends AppCompatActivity {
     private boolean amIInEuro = true;
     private EstateViewModel estateViewModel;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView textNotif;
 
     private static void buttonInternetInfo(Context context) {
         AlertDialog alertDialog = buttonInternetInfoDialog(context);
@@ -66,9 +69,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     private static AlertDialog buttonInternetInfoDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Vous devez activer votre connexion internet pour profiter de l'application." +
-                " Cependant vos informations sont sauvegarder sur votre téléphone et seront envoyées" +
-                "lorsque vous aurez de nouveau une connection").setTitle("Alert Internet").setPositiveButton("J'ai bien activé ma connexion", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.conexioGPStest ).setTitle(R.string.alertinternet ).setPositiveButton(R.string.internetActivate, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Utils.InternetOnVerify(context);
@@ -83,32 +84,38 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Bienvenue !");
+        setTitle(R.string.Welcome);
         detailsIfTablet();
         saveDataInSQLITE();
         takeDataInBDDIfInternetIsHere();
         deployementButtonAdd();
-        deployementButtonInternet();
+        deployementButtonMail();
         onSwipeToRefresh();
         Utils.isInternetAvailable(this);
         Utils.internetIsOn(this);
 //        Utils.GPSOnVerify(this);
         DeploytempHandler();
+        deployementNotificationMail();
     }
 
-    private void DeploytempHandler() {
-        if (Utils.isInternetAvailable(this)) {
-            if (listTemp.size() > 0) {
-                for (int i = 0; i < listTemp.size(); i++) {
-                    Utils.sendItToMyBDDatRealEstate(listTemp.get(i));
-                }
-                Toast.makeText(this, "Send !", Toast.LENGTH_SHORT).show();
-                listTemp.clear();
-            }
-        } else {
-//            Toast.makeText(this, "Vous n'avez pas internet nous ne pouvons envoyer ce fichier a la BDD", Toast.LENGTH_LONG).show();
-        }
+    private void deployementButtonMail() {
+        final ImageButton mailButton = initateButtonMail();
+        activateButtonMail(mailButton);
     }
+
+    private void activateButtonMail(ImageButton mailButton) {
+        mailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeploytempHandler();
+            }
+        });
+    }
+
+    private ImageButton initateButtonMail() {
+        return findViewById(R.id.noInternet);
+    }
+
 
     private void onSwipeToRefresh() {
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
@@ -129,7 +136,7 @@ public class ItemListActivity extends AppCompatActivity {
                     for (int i = 0; i < realEstateList.size(); i++) {
                         estateViewModel.InsertThisData(realEstateList.get(i));
                     }
-                    Utils.downLoadImages(realEstateList.get(0), ItemListActivity.this, new Utils.DownloadController() {
+                    Utils.downLoadImages(realEstateList.get(0), MainActivity.this, new Utils.DownloadController() {
                         @Override
                         public void onfInish(Uri uri) {
                             String checker= String.valueOf(uri);
@@ -140,7 +147,7 @@ public class ItemListActivity extends AppCompatActivity {
 
                 @Override
                 public void onFail() {
-                    Toast.makeText(ItemListActivity.this, "Aucune Données dans la Base De Données", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.nonew, Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -149,10 +156,12 @@ public class ItemListActivity extends AppCompatActivity {
         adapter = new Adaptateur(listRealEstate, mTwoPane, this);
         recyclerView = findViewById(R.id.RecyclerviewEstate);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(ItemListActivity.this);
+        layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
+
+
 
     private void saveDataInSQLITE() {
         estateViewModel = ViewModelProviders.of(this).get(EstateViewModel.class);
@@ -161,9 +170,66 @@ public class ItemListActivity extends AppCompatActivity {
             public void onChanged(List<RealEstate> realEstates) {
                 listRealEstate.clear();
                 listRealEstate.addAll(realEstates);
+                searchForNotif(realEstates);
                 deployRecyclerView();
             }
         });
+    }
+
+    private void searchForNotif(List<RealEstate> realEstates) {
+        listTemp.clear();
+        for (int i = 0; i < realEstates.size() ; i++) {
+            if (realEstates.get(i).getTemp().equals("true")){
+                listTemp.add(realEstates.get(i));
+                majNotif();
+            }
+        }
+    }
+
+    private void deployementNotificationMail() {
+//        dialogBoxInformaer();
+        iniatiateAndActivateNotifLayout();
+
+    }
+
+    private void iniatiateAndActivateNotifLayout() {
+        textNotif = findViewById(R.id.cart_badge);
+        majNotif();
+    }
+
+    private void majNotif() {
+        textNotif.setText(String.valueOf(listTemp.size()));
+    }
+
+    private void DeploytempHandler() {
+        if (listTemp.size() == 0) {
+            Toast.makeText(this, R.string.aucunmail , Toast.LENGTH_SHORT).show();
+        } else {
+            if (Utils.isInternetAvailable(this)) {
+                if (listTemp.size() > 0) {
+                    for (int i = 0; i < listTemp.size(); i++) {
+                        Utils.sendItToMyBDDatRealEstate(listTemp.get(i));
+                        try {
+                            Utils.uploadImage(listTemp.get(i), this, new Utils.CallBackImage() {
+                                @Override
+                                public void onFinish(List<String> s) {
+
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        listTemp.get(i).setTemp("False");
+                        estateViewModel.UpdateThisData(listTemp.get(i));
+                    }
+                    Toast.makeText(this, R.string.sent, Toast.LENGTH_SHORT).show();
+                    listTemp.clear();
+                    majNotif();
+                }
+            } else {
+                Toast.makeText(this, R.string.ni_internet , Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void detailsIfTablet() {
@@ -177,39 +243,16 @@ public class ItemListActivity extends AppCompatActivity {
         activateButtonAdd(addButton);
     }
 
-    private void deployementButtonInternet() {
-//        final ImageButton internetButton = initiateButtonInternet();
-//        activateButtonInternet(internetButton);
-    }
-
-    private void activateButtonInternet(ImageButton internetButton) {
-        if (Utils.InternetOnVerify(this)) {
-            internetButton.setVisibility(View.GONE);
-        } else {
-            internetButton.setVisibility(View.VISIBLE);
-            internetButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buttonInternetInfo(ItemListActivity.this);
-                }
-            });
-        }
-    }
-
 
     private ImageButton initiateButtonAdd() {
         return findViewById(R.id.buttonadd);
     }
 
-//    private ImageButton initiateButtonInternet() {
-////        return findViewById(R.id.noInternet);
-//    }
-
     private void activateButtonAdd(ImageButton addButton) {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ItemListActivity.this, AddInformationActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddInformationActivity.class);
                 startActivity(intent);
             }
         });
@@ -218,6 +261,11 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.iconebarmenu, menu);
+//        MenuItem menuItem = menu.findItem(R.id.action_cart);
+//        menuItem.setActionView(R.layout.notification_badge);
+//        View view =menuItem.getActionView();
+//        TextView badgeCOunter= view.findViewById(R.id.badge_counter);
+//        badgeCOunter.setText(String.valueOf(listTemp.size()));
         return true;
     }
 
@@ -242,14 +290,17 @@ public class ItemListActivity extends AppCompatActivity {
                 List<RealEstate> realEstateListdecroissant = Utils.sortedbyPriceDecroissant(listRealEstate);
                 adapter = new Adaptateur(realEstateListdecroissant, mTwoPane, this);
                 recyclerView.setAdapter(adapter);
-                return true;
+            return true;
+//            case  R.id.action_cart:
+//                DeploytempHandler();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void deploySearchActivity() {
-        Intent intent = new Intent(ItemListActivity.this, SearchActivity.class);
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(intent);
     }
 
@@ -257,8 +308,10 @@ public class ItemListActivity extends AppCompatActivity {
         Utils.GPSOnVerify(this, new Utils.GPSCallBAck() {
             @Override
             public void onRetrieve() {
-                Intent intent = new Intent(ItemListActivity.this, MapsActivity.class);
-                startActivity(intent);
+                if (Utils.isInternetAvailable(MainActivity.this)) {
+                    Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -308,11 +361,13 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         saveDataInSQLITE();
+        majNotif();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        majNotif();
         saveDataInSQLITE();
 
     }

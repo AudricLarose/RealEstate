@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".dummy.ItemListActivity">
+    tools:context=".dummy.MainActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -34,7 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <include layout="@layout/item_list" />
+
+            <include
+                layout="@layout/item_list"
+                android:background="#00FF0000" />
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -44,23 +47,40 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:tint="#00EE0101"
+        app:backgroundTint="@color/colorSecondary"
         app:fab_colorNormal="@color/colorAccent"
         app:fab_colorPressed="@color/colorAccent"
         app:fab_shadowColor="@color/colorAccent"
         app:srcCompat="@drawable/ic_add_circle_white_24dp"
         tools:ignore="VectorDrawableCompat" />
+    <TextView
+        android:id="@+id/cart_badge"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/badge_background"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_anchor="@+id/noInternet"
+        app:layout_anchorGravity="bottom" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/noInternet"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|start"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        app:fab_colorNormal="@android:color/holo_orange_dark"-->
-<!--        app:fab_colorPressed="@android:color/holo_orange_dark"-->
-<!--        app:fab_shadowColor="@android:color/holo_orange_dark"-->
-<!--        android:theme="@style/TextAppearance.AppCompat.Body1"-->
-<!--        app:srcCompat="@drawable/ic_signal_cellular_connected_no_internet_0_bar_red_24dp"-->
-<!--        tools:ignore="VectorDrawableCompat" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/noInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:theme="@style/TextAppearance.AppCompat.Body1"
+        app:backgroundTint="@color/colorPrimary"
+        app:fab_colorNormal="@android:color/holo_orange_dark"
+        app:fab_colorPressed="@android:color/holo_orange_dark"
+        app:fab_shadowColor="@android:color/holo_orange_dark"
+        app:srcCompat="@drawable/ic_markunread_mailbox_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

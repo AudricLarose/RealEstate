@@ -21,7 +21,7 @@ public class RealEstate implements Serializable {
     private String town;
     private String description;
     private String nomAgent;
-    
+
     @TypeConverters(Converters.class)
     private List<String> descriptionImage;
 
@@ -42,27 +42,12 @@ public class RealEstate implements Serializable {
     private String url;
     private String inEuro;
     private String selled;
+    private String temp = "false";
+
+    @TypeConverters(Converters.class)
+    private List<String> urlFireBase;
 
     public RealEstate() {
-    }
-
-    public RealEstate(String inEuro, String ischecked, String type, String nomAgent, List<String> nearby, String adresse, String chambre, String description, String market, String postal, String piece, String prix, String sdb, String surface, String town, String selled, List<MediaImage> photos, Double latitude, Double longitude, String urlImage, String photosReal) {
-        this.type = type;
-        this.nomAgent = nomAgent;
-        this.adresse = adresse;
-        this.ischecked = ischecked;
-        this.postal = postal;
-        this.town = town;
-        this.description = description;
-        this.nearby = nearby;
-        this.chambre = chambre;
-        this.piece = piece;
-        this.sdb = sdb;
-        this.surface = surface;
-        this.market = market;
-        this.prix = prix;
-        this.inEuro = inEuro;
-        this.selled = selled;
     }
 
     public RealEstate(String inEuro, String ischecked, String type, String nomAgent, List<String> nearby, String adresse, String chambre, String description, String market, String postal, String piece, String prix, String sdb, String surface, String town, String selled, Double latitude, Double longitude, String url, List<String> photosReal, List<String> descriptionImage) {
@@ -155,6 +140,14 @@ public class RealEstate implements Serializable {
 
     }
 
+    public List<String> getUrlFireBase() {
+        return urlFireBase;
+    }
+
+    public void setUrlFireBase(List<String> urlFireBase) {
+        this.urlFireBase = urlFireBase;
+    }
+
     public List<String> getDescriptionImage() {
         return descriptionImage;
     }
@@ -225,6 +218,14 @@ public class RealEstate implements Serializable {
 
     public void setIschecked(String ischecked) {
         this.ischecked = ischecked;
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 
     public String getMarket() {

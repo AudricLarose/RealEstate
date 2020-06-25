@@ -26,7 +26,6 @@ import com.openclassrooms.realestatemanager.Api.DI;
 import com.openclassrooms.realestatemanager.Api.ExtendedServiceEstate;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.Utils;
-import com.openclassrooms.realestatemanager.modele.MediaImage;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 import com.squareup.picasso.Picasso;
 
@@ -34,11 +33,11 @@ import java.util.List;
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ItemListActivity}
+ * This fragment is either contained in a {@link MainActivity}
  * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
  * on handsets.
  */
-public class ItemDetailFragment extends Fragment {
+public class DetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
     private static RealEstate estateGrabbed;
     private DummyContent.DummyItem mItem;
@@ -52,9 +51,10 @@ public class ItemDetailFragment extends Fragment {
     private LatLng latLngRealestate;
     private Bundle mapViewBundle = null;
     private ImageView mImageView;
+    private Boolean modePhone;
     private RelativeLayout relativeLayout;
 
-    public ItemDetailFragment() {
+    public DetailFragment() {
     }
 
     @Override
@@ -62,13 +62,21 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            for (int i = 0; i <listRealEstate.size() ; i++) {
-                if (String.valueOf(listRealEstate.get(i).getId()).contains(getArguments().getString(ARG_ITEM_ID))) {
-                    estateGrabbed = listRealEstate.get(i);
+            String id = getArguments().getString(ARG_ITEM_ID);
+            if (getArguments() != null && id!=null) {
+                modePhone=false;
+                for (int i = 0; i < listRealEstate.size(); i++) {
+                    if (String.valueOf(listRealEstate.get(i).getId()).contains(getArguments().getString(ARG_ITEM_ID))) {
+                        estateGrabbed = listRealEstate.get(i);
+                        estateGrabbed = estateGrabbed;
+                    }
                 }
+            } else {
+                modePhone=true;
+
             }
 
-        // Load the dummy content specified by the fragment
+            // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
 //            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -127,7 +135,9 @@ public class ItemDetailFragment extends Fragment {
 
 
     private void realStateIfExist(View container) {
-        estateGrabbed = grabEstatFromMainActivity();
+        if (modePhone) {
+            estateGrabbed = grabEstatFromMainActivity();
+        }
         if (estateGrabbed != null) {
             deployRecyclerViewDetails(container);
             shareInformationsDetails(container);
@@ -153,7 +163,7 @@ public class ItemDetailFragment extends Fragment {
         roomChiffre.setText(estateGrabbed.getPiece());
         typeCHiffre.setText(estateGrabbed.getType());
         bathroomchiffre.setText(estateGrabbed.getSdb());
-        if (estateGrabbed.getNearby()!=null) {
+        if (estateGrabbed.getNearby() != null) {
             nearbyChiffre.setText(estateGrabbed.getNearby().toString());
         }
         chamber.setText(estateGrabbed.getChambre());
@@ -163,7 +173,7 @@ public class ItemDetailFragment extends Fragment {
 
     private void initiateSwitchSell(View rootView) {
         relativeLayout = rootView.findViewById(R.id.RelativeSelledDetails);
-        if (estateGrabbed.getIschecked()!=null && estateGrabbed.getSelled()!=null) {
+        if (estateGrabbed.getIschecked() != null && estateGrabbed.getSelled() != null) {
             if (!Boolean.valueOf(estateGrabbed.getIschecked()) && estateGrabbed.getSelled().equals("date")) {
                 relativeLayout.setVisibility(View.INVISIBLE);
             } else {
@@ -189,8 +199,10 @@ public class ItemDetailFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.convert:
                 knowIfConvertToEuroOrDOllar();
+                return true;
             case R.id.modify:
                 modifyThisEstate();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -201,7 +213,7 @@ public class ItemDetailFragment extends Fragment {
         Utils.findAddress(getContext(), estateGrabbed.getAdresse(), new Utils.AdressGenerators() {
             @Override
             public void onSuccess(List<Address> addressList) {
-                findTheRightAdress(container,addressList);
+                findTheRightAdress(container, addressList);
             }
 
             @Override

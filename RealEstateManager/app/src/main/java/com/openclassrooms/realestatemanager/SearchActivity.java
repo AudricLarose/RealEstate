@@ -68,7 +68,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setTitle("Rechercher");
+        setTitle(R.string.Search);
         resultResearchRealEstate.addAll(listRealEstate);
         actionfleche();
         deployRecyclerView();
@@ -335,7 +335,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     private void deleteNumberPhotosByIfResultMatch(int i) {
         for (int j = 0; j < resultsValidatedByUserForPhotos.size(); j++) {
             if (resultsValidatedByUserForPhotos.get(j) != null && !listRealEstate.isEmpty()) {
-                if (listRealEstate.get(i).getPhotosReal().size() <= Integer.valueOf(resultsValidatedByUserForPhotos.get(j))) {
+                if (listRealEstate.get(i).getPhotosReal().size() < Integer.valueOf(resultsValidatedByUserForPhotos.get(j))) {
                     resultResearchRealEstate.remove(listRealEstate.get(i));
                 }
             }
@@ -344,14 +344,14 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
     private void deletePriceMinIfResultMatch(int i) {
         if ((globalResultEstate.get("PrixMax") != null && !globalResultEstate.get("PrixMax").isEmpty())) {
-            if ((Integer.valueOf(globalResultEstate.get("PrixMax")) > Integer.valueOf(listRealEstate.get(i).getPrix()))) {
+            if ((Integer.valueOf(globalResultEstate.get("PrixMax")) < Integer.valueOf(listRealEstate.get(i).getPrix()))) {
                 resultResearchRealEstate.remove(listRealEstate.get(i));
             }
         }
     }
     private void deletePriceMaxIfResultMatch(int i) {
         if ((globalResultEstate.get("PrixMin") != null && !globalResultEstate.get("PrixMin").isEmpty())) {
-            if ((Integer.valueOf(globalResultEstate.get("PrixMin")) < Integer.valueOf(listRealEstate.get(i).getPrix()))) {
+            if ((Integer.valueOf(globalResultEstate.get("PrixMin")) > Integer.valueOf(listRealEstate.get(i).getPrix()))) {
                 resultResearchRealEstate.remove(listRealEstate.get(i));
             }
         }
@@ -359,7 +359,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
     private void deleteSurfaceMaxIfResultMatch(int i) {
         if ((globalResultEstate.get("SurfaceMax") != null && !globalResultEstate.get("SurfaceMax").isEmpty())) {
-            if ((Integer.valueOf(globalResultEstate.get("SurfaceMax")) > Integer.valueOf(listRealEstate.get(i).getSurface()))) {
+            if ((Integer.valueOf(globalResultEstate.get("SurfaceMax")) < Integer.valueOf(listRealEstate.get(i).getSurface()))) {
                 resultResearchRealEstate.remove(listRealEstate.get(i));
             }
         }
@@ -367,7 +367,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
     private void deleteSurfaceMinIfResultMatch(int i) {
         if ((globalResultEstate.get("SurfaceMin") != null && !globalResultEstate.get("SurfaceMin").isEmpty())) {
-            if ((Integer.valueOf(globalResultEstate.get("SurfaceMin")) < Integer.valueOf(listRealEstate.get(i).getSurface()))) {
+            if ((Integer.valueOf(globalResultEstate.get("SurfaceMin")) > Integer.valueOf(listRealEstate.get(i).getSurface()))) {
                 resultResearchRealEstate.remove(listRealEstate.get(i));
             }
         }

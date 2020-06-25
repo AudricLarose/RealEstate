@@ -34,4 +34,13 @@
         android:title="search"
         app:showAsAction="always" />
 
+
+<!--    <item-->
+<!--        android:id="@+id/action_cart"-->
+<!--        android:title="No Waiting"-->
+<!--        android:icon="@drawable/ic_notifications"-->
+<!--        android:actionLayout="@layout/notification_badge"-->
+<!--        app:showAsAction="always"/>-->
+
 </menu>
+

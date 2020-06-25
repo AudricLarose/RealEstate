@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.Api;
 
-import com.openclassrooms.realestatemanager.modele.MediaImage;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
 import java.util.ArrayList;

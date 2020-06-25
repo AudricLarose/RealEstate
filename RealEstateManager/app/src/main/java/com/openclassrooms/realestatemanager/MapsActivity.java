@@ -1,26 +1,20 @@
 package com.openclassrooms.realestatemanager;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.GpsSatellite;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -31,22 +25,22 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.openclassrooms.realestatemanager.Api.DI;
 import com.openclassrooms.realestatemanager.Api.ExtendedServiceEstate;
+import com.openclassrooms.realestatemanager.dummy.ItemDetailActivity;
 import com.openclassrooms.realestatemanager.modele.RealEstate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.location.GpsStatus.GPS_EVENT_SATELLITE_STATUS;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static FusedLocationProviderClient fusedLocationProviderClient;
@@ -60,36 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         deployOnMapReady();
-//        checkGPSStatus();
     }
-
-//    private void checkGPSStatus() {
-//        LocationManager lm = (LocationManager) getSystemService(MapsActivity. LOCATION_SERVICE ) ;
-//        boolean gps_enabled = false;
-//        boolean network_enabled = false;
-//        try {
-//            gps_enabled = lm.isProviderEnabled(LocationManager. GPS_PROVIDER ) ;
-//        } catch (Exception e) {
-//            e.printStackTrace() ;
-//        }
-//        try {
-//            network_enabled = lm.isProviderEnabled(LocationManager. NETWORK_PROVIDER ) ;
-//        } catch (Exception e) {
-//            e.printStackTrace() ;
-//        }
-//        if (!gps_enabled && !network_enabled) {
-//            new AlertDialog.Builder(MapsActivity.this)
-//                    .setMessage("GPS Enable")
-//                    .setPositiveButton("Settings", new
-//                            DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-//                                }
-//                            })
-//                    .setNegativeButton("Cancel", null)
-//                    .show();
-//        }
-//    }
 
     private void deployOnMapReady() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -126,7 +91,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void askPermission(final GoogleMap googleMap) {
         if ((MapsActivity.this.checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
@@ -149,6 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     }
+
     private void placeMeOnMap(final GoogleMap googleMap) {
         Utils.GPSOnVerify(MapsActivity.this, new Utils.GPSCallBAck() {
             @Override
@@ -176,14 +141,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(MapsActivity.this, "Votre Position n'a pas été trouvé, " +e.getLocalizedMessage()+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapsActivity.this, "Votre Position n'a pas été trouvé, " + e.getLocalizedMessage() + e.getMessage(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                     e.getCause();
                     e.fillInStackTrace();
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(MapsActivity.this, "Votre Position n'a pas été trouvé, " +e.getLocalizedMessage()+ e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MapsActivity.this, "Votre Position n'a pas été trouvé, " + e.getLocalizedMessage() + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             e.getCause();
             e.fillInStackTrace();
@@ -192,16 +157,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void verifyIfPlaceCanBePlaced(GoogleMap googleMap) {
         for (int i = 0; i < listRealEstate.size(); i++) {
-            searchAdressIfExist(listRealEstate.get(i),googleMap);
+            searchAdressIfExist(listRealEstate.get(i), googleMap);
         }
     }
 
-    private void searchAdressIfExist(RealEstate estate, final GoogleMap Map) {
-        if (estate.getAdresse()!=null){
+    private void searchAdressIfExist(final RealEstate estate, final GoogleMap Map) {
+        if (estate.getAdresse() != null) {
             Utils.findAddress(MapsActivity.this, estate.getAdresse(), new Utils.AdressGenerators() {
                 @Override
                 public void onSuccess(List<Address> addressList) {
-                    searchAndPlacePlaces(Map,addressList);
+                    searchAndPlacePlaces(Map, addressList, estate);
                 }
 
                 @Override
@@ -217,12 +182,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             });
         }
     }
-    private void searchAndPlacePlaces(GoogleMap googleMap, List<Address> addressList) {
+
+    private void searchAndPlacePlaces(GoogleMap googleMap, List<Address> addressList, final RealEstate estate) {
         try {
             for (int i = 0; i < addressList.size(); i++) {
                 LatLng latLngRealestate = new LatLng(addressList.get(i).getLatitude(), addressList.get(i).getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(latLngRealestate).title("here"));
+                googleMap.addMarker(new MarkerOptions()
+                        .snippet(estate.getTown())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                        .position(latLngRealestate)
+                        .title(estate.getAdresse()));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLngRealestate));
+                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Intent intent = new Intent(MapsActivity.this, ItemDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("RealEstate", estate);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }
         } catch (Exception e) {
             Toast.makeText(this, "L'adresse indiquée n'a pas été trouvé sur notre banque de donnée", Toast.LENGTH_SHORT).show();

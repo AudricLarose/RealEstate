@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".dummy.ItemListActivity"
+            android:name=".dummy.MainActivity"
             android:label="@string/title_item_list"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,11 +39,11 @@
         <activity
             android:name=".dummy.ItemDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName=".dummy.ItemListActivity"
+            android:parentActivityName=".dummy.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.openclassrooms.realestatemanager.dummy.ItemListActivity" />
+                android:value="com.openclassrooms.realestatemanager.dummy.MainActivity" />
         </activity>
         <activity android:name=".SearchActivity" />
 
