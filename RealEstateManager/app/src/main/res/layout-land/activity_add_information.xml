@@ -22,12 +22,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"
-
+                android:padding="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
                 android:background="@color/colorPrimary"
-                android:entries="@array/Spinner_items"
-                android:outlineAmbientShadowColor="#bedac3" />
+                android:entries="@array/Spinner_items" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_adresse"
@@ -37,15 +36,15 @@
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginBottom="30dp"
                 android:textAlignment="center"
-                app:mtf_backgroundColor="#bedac3"
+                app:mtf_backgroundColor="@android:color/black"
                 app:mtf_cardCollapsedHeight="4dp"
                 app:mtf_image="@drawable/ic_map_black_24dp"
-                app:mtf_labelColor="#bedac3">
+                app:mtf_labelColor="@android:color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Adresse"
+                    android:hint="@string/adresse"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
@@ -65,14 +64,14 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Postale"
+                        android:hint="@string/postale"
                         android:inputType="phone"
-                        android:textColor="#bedac3"
+                        android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +84,7 @@
                 android:layout_below="@+id/edit_adresse"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="51dp"
+                android:layout_marginRight="21dp"
 
                 android:layout_toRightOf="@+id/RelativePostal">
 
@@ -95,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
 
-                    android:text="Ville" />
+                    android:text="@string/ville" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_ville"
@@ -103,15 +102,14 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="0dp"
-                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_backgroundColor="@android:color/black"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Ville"
+                        android:hint="@string/ville"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
 
@@ -130,9 +128,8 @@
                     android:id="@+id/text_onthemarket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="sur le marché depuis "
-                    android:textColor="#bedac3" />
+                    android:text="@string/sur_le_march_depuis"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/edit_onthemarket"
@@ -142,7 +139,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
                     android:text=" "
-                    android:textColor="#bedac3" />
+                    android:textColor="@android:color/black" />
 
                 <Button
                     android:id="@+id/btn_date"
@@ -153,7 +150,7 @@
                     android:layout_marginVertical="10dp"
 
                     android:background="@drawable/button"
-                    android:text="Date" />
+                    android:text="@string/date" />
             </RelativeLayout>
 
             <Switch
@@ -163,8 +160,8 @@
                 android:layout_below="@id/RelativeVille"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
-                android:text="Vendu ?"
-                android:textColor="#bedac3" />
+                android:text="@string/ornot"
+                android:textColor="@android:color/black" />
 
             <RelativeLayout
                 android:id="@+id/RelativeSell"
@@ -182,8 +179,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
-                    android:text="date"
-                    android:textColor="#bedac3" />
+                    android:text="@string/date"
+                    android:textColor="@android:color/black" />
 
                 <Button
                     android:id="@+id/btn_date_Sell"
@@ -192,7 +189,8 @@
                     android:layout_below="@+id/edit_ontheSell"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
-                    android:text="Date" />
+                    android:text="@string/date"
+                    />
 
 
             </RelativeLayout>
@@ -203,7 +201,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_adresse"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@+id/RelativeMaarket">
 
                 <TextView
@@ -212,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
 
-                    android:text="Prix" />
+                    android:text="@string/prix" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -222,14 +220,14 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="30dp"
-                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_backgroundColor="@android:color/black"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Prix"
+                        android:hint="@string/prix"
                         android:inputType="phone"
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
@@ -242,7 +240,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeVille"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="30sp"
                 android:layout_marginRight="50dp"
                 android:layout_toRightOf="@+id/RelativeChambre">
@@ -253,21 +251,21 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
 
-                    android:text="Surface" />
+                    android:text="@string/surface" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_surface"
                     android:layout_width="match_parent"
 
                     android:layout_height="match_parent"
-                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_backgroundColor="@android:color/black"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Surface"
+                        android:hint="@string/surface"
                         android:inputType="phone"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
@@ -288,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="pieces"
+                    android:text="@string/piece"
 
                     />
 
@@ -300,14 +298,14 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="0dp"
-                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_backgroundColor="@android:color/black"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Piece"
+                        android:hint="@string/piece"
                         android:inputType="phone"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
@@ -322,7 +320,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeVille"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_toRightOf="@+id/RelativePiece">
 
@@ -331,7 +329,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="chambres"
+                    android:text="@string/chambre"
 
                     />
 
@@ -339,14 +337,14 @@
                     android:id="@+id/edit_chambre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_backgroundColor="@android:color/black"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Chambre"
+                        android:hint="@string/chambre"
                         android:inputType="phone"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
@@ -360,7 +358,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeVille"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_toRightOf="@+id/RelativeMaarket">
 
@@ -371,20 +369,20 @@
 
                     android:layout_centerHorizontal="true"
 
-                    android:text="SDB" />
+                    android:text="@string/sdb" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_sdb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:mtf_backgroundColor="#bedac3"
+                    app:mtf_backgroundColor="@android:color/black"
                     app:mtf_cardCollapsedHeight="4dp"
-                    app:mtf_labelColor="#bedac3">
+                    app:mtf_labelColor="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Sdb"
+                        android:hint="@string/sdb"
                         android:inputType="phone"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
@@ -400,8 +398,8 @@
                 android:layout_below="@+id/RelativeSdb"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="Nom De l'Agent"
-                android:textColor="#bedac3" />
+                android:text="@string/nom_agent"
+                android:textColor="@android:color/black" />
 
 
             <Spinner
@@ -410,12 +408,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_nom_agent"
                 android:layout_marginHorizontal="50dp"
+                android:padding="20dp"
                 android:layout_marginTop="20dp"
 
                 android:layout_marginBottom="50dp"
                 android:background="@color/colorPrimary"
                 android:entries="@array/Spinner_items2"
-                android:textColor="#bedac3" />
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/text_description"
@@ -423,8 +422,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nom_agent"
                 android:layout_marginBottom="20dp"
-                android:text="Description"
-                android:textColor="#bedac3" />
+                android:text="@string/description"
+                android:textColor="@android:color/black" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_descript"
@@ -433,15 +432,15 @@
                 android:layout_below="@id/text_description"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginBottom="30dp"
-                app:mtf_backgroundColor="#bedac3"
+                app:mtf_backgroundColor="@android:color/black"
                 app:mtf_cardCollapsedHeight="4dp"
                 app:mtf_image="@drawable/ic_map_black_24dp"
-                app:mtf_labelColor="#bedac3">
+                app:mtf_labelColor="@android:color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Description"
+                    android:hint="@string/description"
                     android:textColor="@android:color/white"
                     android:textSize="15sp" />
 
@@ -454,8 +453,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_descript"
                 android:layout_marginBottom="10dp"
-                android:text="proximité"
-                android:textColor="#bedac3" />
+                android:text="@string/proximit"
+                android:textColor="@android:color/black" />
 
             <RelativeLayout
 
@@ -471,8 +470,8 @@
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ecoles"
-                    android:textColor="#bedac3"
+                    android:text="@string/ecole"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -483,8 +482,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/check_ecole"
-                    android:text="magasins"
-                    android:textColor="#bedac3"
+                    android:text="@string/magasins"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -495,8 +494,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/check_magasin"
-                    android:text="Station"
-                    android:textColor="#bedac3"
+                    android:text="@string/station"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -508,8 +507,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:layout_toRightOf="@+id/check_metro"
-                    android:text="Parc"
-                    android:textColor="#bedac3"
+                    android:text="@string/parc"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -520,8 +519,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/check_parc"
-                    android:text="station Bus/Metro"
-                    android:textColor="#bedac3"
+                    android:text="@string/station_bus_metro"
+                    android:textColor="@android:color/white"
                     android:theme="@style/Theme.MaterialComponents.DayNight"
                     app:chipBackgroundColor="@color/colorPrimary"
                     app:chipCornerRadius="24dp" />
@@ -535,7 +534,7 @@
                 android:layout_below="@id/relativeCBox"
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/button"
-                android:text="Local photo"
+                android:text="@string/local_photo"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -547,7 +546,7 @@
                 android:layout_marginRight="50dp"
                 android:background="@drawable/button"
 
-                android:text="Take a photo"
+                android:text="@string/take_a_photo"
 
                 android:textColor="@android:color/white" />
 
@@ -567,7 +566,7 @@
                 android:layout_below="@id/Recyclerviewphotos"
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/button"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textColor="@android:color/white"
                 android:textSize="15dp" />
 
@@ -579,7 +578,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="50dp"
                 android:background="@drawable/button"
-                android:text="Modifier"
+                android:text="@string/modifier"
                 android:textColor="@android:color/white"
 
                 android:visibility="gone" />
@@ -593,15 +592,9 @@
                 android:layout_marginRight="50dp"
                 android:background="@drawable/button"
 
-                android:text="Ok" />
+                android:text="@string/ok" />
         </RelativeLayout>
 
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:alpha="0.1"
-        android:background="@drawable/round"></RelativeLayout>
 </RelativeLayout>

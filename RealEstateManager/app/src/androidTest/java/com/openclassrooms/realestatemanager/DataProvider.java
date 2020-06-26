@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertThat;
 public class DataProvider {
 
     // DATA SET FOR TEST
-    private static long USER_ID = 1;
+    private static UUID USER_ID = UUID.randomUUID();
     // FOR DATA
     private ContentResolver mContentResolver;
     private PersonContentProvider personContentProvider;
@@ -44,7 +45,7 @@ public class DataProvider {
     //
     @Test
     public void getItemsWhenNoItemInserted() {
-         final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, USER_ID), null, null, null, null);
+         final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, Long.parseLong(USER_ID.toString())), null, null, null, null);
         personContentProvider= new PersonContentProvider();
 
 //        final Cursor cursor = personContentProvider.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, USER_ID), null, null, null, null);
@@ -58,7 +59,7 @@ public class DataProvider {
         // BEFORE : Adding demo item
         final Uri userUri = mContentResolver.insert(PersonContentProvider.URI_ITEM, generateItem());
         // TEST
-        final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, 95), null, null, null, null);
+        final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PersonContentProvider.URI_ITEM, Long.parseLong(USER_ID.toString())), null, null, null, null);
         assertThat(cursor, notNullValue());
         assertThat(cursor.getCount(), is(1));
         assertThat(cursor.moveToFirst(), is(true));

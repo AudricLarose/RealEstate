@@ -129,27 +129,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void takeDataInBDDIfInternetIsHere() {
-            Utils.saveDataInBDD(new Utils.CallBackInterfaceForBDD() {
-                @Override
-                public void onFinish(List<RealEstate> realEstateList, FirebaseFirestoreException e) {
-                    estateViewModel.deleteAlldata();
-                    for (int i = 0; i < realEstateList.size(); i++) {
-                        estateViewModel.InsertThisData(realEstateList.get(i));
-                    }
-                    Utils.downLoadImages(realEstateList.get(0), MainActivity.this, new Utils.DownloadController() {
-                        @Override
-                        public void onfInish(Uri uri) {
-                            String checker= String.valueOf(uri);
-                        }
-                    });
-
-                }
-
-                @Override
-                public void onFail() {
-                    Toast.makeText(MainActivity.this, R.string.nonew, Toast.LENGTH_SHORT).show();
-                }
-            });
+//            Utils.saveDataInBDD(new Utils.CallBackInterfaceForBDD() {
+//                @Override
+//                public void onFinish(List<RealEstate> realEstateList, FirebaseFirestoreException e) {
+//                    estateViewModel.deleteAlldata();
+//                    for (int i = 0; i < realEstateList.size(); i++) {
+//                        estateViewModel.InsertThisData(realEstateList.get(i));
+//                    }
+//                    Utils.downLoadImages(realEstateList.get(0), MainActivity.this, new Utils.DownloadController() {
+//                        @Override
+//                        public void onfInish(Uri uri) {
+//                            String checker= String.valueOf(uri);
+//                        }
+//                    });
+//
+//                }
+//
+//                @Override
+//                public void onFail() {
+//                    Toast.makeText(MainActivity.this, R.string.nonew, Toast.LENGTH_SHORT).show();
+//                }
+//            });
     }
 
     private void deployRecyclerView() {

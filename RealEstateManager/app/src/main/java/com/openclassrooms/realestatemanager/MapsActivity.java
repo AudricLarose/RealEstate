@@ -134,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         double latitude = task.getResult().getLatitude();
                         double longitude = task.getResult().getLongitude();
                         LatLng latLng = new LatLng(latitude, longitude);
-                        googleMap.addMarker(new MarkerOptions().position(latLng).title("Me"));
+                        googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.position)));
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                     }
                 }

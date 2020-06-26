@@ -7,14 +7,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecycleDetails"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white" />
 
@@ -103,7 +103,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="100dp"
                     android:layout_marginBottom="20dp">
 
                     <ImageView
@@ -114,7 +113,7 @@
 
                     <TextView
                         android:id="@+id/PriceDetails"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="10dp"
@@ -181,8 +180,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-
-                    android:layout_marginRight="100dp"
                     android:textStyle="bold">
 
                     <ImageView
@@ -193,9 +190,11 @@
 
                     <TextView
                         android:id="@+id/TypeDetails"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginTop="0dp"
                         android:layout_toRightOf="@+id/icone_type"
                         android:text="@string/type"
                         android:textColor="@android:color/black"
@@ -205,9 +204,11 @@
                         android:id="@+id/TypeChiffresDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_below="@+id/TypeDetails"
-                        android:text="@string/chiffres"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="0dp"
+                        android:text="appartement"
                         android:textColor="@android:color/black" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -217,7 +218,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Relativedetails2"
-
                 android:layout_marginBottom="20dp">
 
                 <RelativeLayout
@@ -256,11 +256,10 @@
 
                 <RelativeLayout
                     android:id="@+id/RelativeRoomsDetails"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginRight="65dp"
                     android:layout_marginBottom="20dp">
 
                     <ImageView
@@ -271,7 +270,7 @@
 
                     <TextView
                         android:id="@+id/RoomsDetails"
-                        android:layout_width="wrap_content"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/icone_bedroom"
@@ -364,7 +363,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginRight="70dp"
                     android:layout_marginBottom="20dp"
 
                     >
@@ -377,7 +375,7 @@
 
                     <TextView
                         android:id="@+id/selledDetails"
-                        android:layout_width="wrap_content"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/icone_vendu"
